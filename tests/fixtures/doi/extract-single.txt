@@ -1,0 +1,23 @@
+10.1164/ajrccm/137.5.1159 http://ajrccm.atsjournals.org/cgi/doi/10.1164/ajrccm/137.5.1159 "https://idp.example.edu/idp/profile/SAML2/POST/SSO"
+10.1001/jamaophthalmol.2013.4412 http://archopht.jamanetwork.com/article.aspx?doi=10.1001/jamaophthalmol.2013.4412 "https://idp.example.edu/idp/profile/SAML2/POST/SSO"
+10.1007/978-0-387-77318-6 http://dx.doi.org/10.1007/978-0-387-77318-6 "https://idp.example.edu/idp/profile/SAML2/POST/SSO"
+10.1017/S1478951513001193 http://dx.doi.org/10.1017/S1478951513001193?nosfx=y
+10.1037/a0031821 http://www.example.com/sfx_local?sid=OVID:psycdb&id=pmid:&id=doi:10.1037/a0031821&issn=1528-3542&isbn=&volume=13
+10.1038/nrn3779 http://www.example.com/sfx_local?sid=google&auinit=S&aulast=Lewis&atitle=Learning+and+memory:+Engineering+memories&id=doi:10.1038/nrn3779&
+10.1234/abcdefg This is a string that has a doi:10.1234/abcdefg inside the text
+10.1234/abcdefg.abcdefg%asdfgh.88 This is a string that has a doi:10.1234/abcdefg.abcdefg%asdfgh.88 inside the text
+10.1234/abcdefg.1234 This is a string that has a doi:10.1234/abcdefg.1234?query=value&12345=xyz inside the text with a query string to strip
+10.1234/abcdefg/1234 This has a URL http://example.com/doi/10.1234/abcdefg/1234/abstract with /abstract
+10.1234/abcdefg/1234 This has a URL http://example.com/doi/10.1234/abcdefg/1234/issuetocxyz with /issuetoc1234
+10.1234/abcdefg/1234 This has a URL http://example.com/doi/10.1234/abcdefg/1234.pdf with .pdf
+10.1234/abcdefg/1234 This has a URL http://example.com/doi/10.1234/abcdefg/1234/pdf/standard with /pdf/standard
+10.1234/abcdefg/1234 This has a URL http://example.com/doi/10.1234/abcdefg/1234/references with /references
+10.1234/abcdefg/1234 This has a URL http://example.com/doi/10.1234/abcdefg/1234/full with /full
+10.1234/abcdefg/1234 This has a URL http://example.com/doi/10.1234/abcdefg/1234/fulltext.html with /fulltext.html
+10.1234/abcdefg/1234/notstripped This has a URL http://example.com/doi/10.1234/abcdefg/1234/notstripped because it isn't a known strip pattern
+10.1234/abcdefg/1234 This has a URL http://example.com/doi/10.1234/abcdefg/1234/fulltext.html?query=value with /fulltext.html AND a query string
+10.123/abcdefg/1234.xyz.123 This has a session id http://dx.doi.org/10.123/abcdefg/1234.xyz.123;jsessionid=dddddddddddddddddddddd in it
+10.1234/abcdefg/1234 This http://dx.doi.org/10.1234/abcdefg/1234/asset/xyz/1234 contains /asset which is followed by junk
+10.1234/abcdefg/1234 This http://dx.doi.org/10.1234/abcdefg/1234/ has a trailing slash
+10.1234/abcdefg/1234 This http://dx.doi.org/10.1234/abcdefg/1234/full has /full
+10.1234/abcdefg/1234 This http://dx.doi.org/10.1234/abcdefg/1234/cite/refworks has /cite/refworks

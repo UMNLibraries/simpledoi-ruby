@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doi_records>
+  <doi_record owner="10.1037" timestamp="2014-07-08 10:37:22">
+    <crossref>
+      <journal>
+        <journal_metadata language="en">
+          <full_title>Rehabilitation Psychology</full_title>
+          <abbrev_title>Rehab. Psych.</abbrev_title>
+          <issn media_type="electronic">1939-1544</issn>
+          <issn media_type="print">0090-5550</issn>
+        </journal_metadata>
+        <journal_issue>
+          <publication_date media_type="online">
+            <year>2007</year>
+          </publication_date>
+          <journal_volume>
+            <volume>52</volume>
+          </journal_volume>
+          <issue>1</issue>
+        </journal_issue>
+        <journal_article>
+          <titles>
+            <title>Fear of reinjury, negative affect, and catastrophizing predicting return to sport in recreational athletes with anterior cruciate ligament injuries at 1 year postsurgery.</title>
+          </titles>
+          <contributors>
+            <person_name sequence="first" contributor_role="author">
+              <given_name>Dean A.</given_name>
+              <surname>Tripp</surname>
+            </person_name>
+            <person_name sequence="additional" contributor_role="author">
+              <given_name>William</given_name>
+              <surname>Stanish</surname>
+            </person_name>
+            <person_name sequence="additional" contributor_role="author">
+              <given_name>Anna</given_name>
+              <surname>Ebel-Lam</surname>
+            </person_name>
+            <person_name sequence="additional" contributor_role="author">
+              <given_name>Britton W.</given_name>
+              <surname>Brewer</surname>
+            </person_name>
+            <person_name sequence="additional" contributor_role="author">
+              <given_name>John</given_name>
+              <surname>Birchard</surname>
+            </person_name>
+          </contributors>
+          <publication_date media_type="online">
+            <year>2007</year>
+          </publication_date>
+          <pages>
+            <first_page>74</first_page>
+            <last_page>81</last_page>
+          </pages>
+          <publisher_item>
+            <identifier id_type="other">2007-02366-008</identifier>
+          </publisher_item>
+          <program>
+            <assertion name="funder_name">Queen's University</assertion>
+            <assertion name="funder_identifier">http://dx.doi.org/10.13039/501100003321</assertion>
+          </program>
+          <doi_data>
+            <doi>10.1037/0090-5550.52.1.74</doi>
+            <timestamp>2014070810244700000</timestamp>
+            <resource>http://doi.apa.org/getdoi.cfm?doi=10.1037/0090-5550.52.1.74</resource>
+          </doi_data>
+        </journal_article>
+      </journal>
+    </crossref>
+  </doi_record>
+</doi_records>

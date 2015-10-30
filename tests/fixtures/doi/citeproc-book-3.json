@@ -1,0 +1,45 @@
+{
+    "subtitle": [],
+    "issued": {
+        "date-parts": [
+            [2007]
+        ]
+    },
+    "score": 1.0,
+    "prefix": "none",
+    "container-title": "IFIP International Federation for Information Processing",
+    "reference-count": 0,
+    "deposited": {
+        "date-parts": [
+            [2013, 9, 6]
+        ],
+        "timestamp": 1378425600000
+    },
+    "title": "Organizational Dynamics of Technology-Based Innovation: Diversifying the Research Agenda",
+    "editor": [{
+        "family": "McMaster",
+        "given": "Tom"
+    }, {
+        "family": "Wastell",
+        "given": "David"
+    }, {
+        "family": "Ferneley",
+        "given": "Elaine"
+    }, {
+        "family": "DeGross",
+        "given": "Janice I."
+    }],
+    "type": "book",
+    "DOI": "10.1007\/978-0-387-72804-9",
+    "ISBN": ["http:\/\/id.crossref.org\/isbn\/978-0-387-72803-2"],
+    "URL": "http:\/\/dx.doi.org\/10.1007\/978-0-387-72804-9",
+    "source": "CrossRef",
+    "publisher": "Springer US",
+    "indexed": {
+        "date-parts": [
+            [2015, 2, 12]
+        ],
+        "timestamp": 1423778321851
+    },
+    "member": null
+}

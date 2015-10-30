@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doi_records>
+  <doi_record owner="10.1109" timestamp="2010-12-08 11:41:04">
+    <crossref>
+      <conference>
+        <event_metadata>
+          <conference_name><![CDATA[2009 International Conference on Engineering Computation]]></conference_name>
+          <conference_location>Hong Kong, China</conference_location>
+          <conference_date start_month="05" start_year="2009" start_day="2" end_month="05" end_year="2009" end_day="3" />
+        </event_metadata>
+        <proceedings_metadata>
+          <proceedings_title><![CDATA[2009 International Conference on Engineering Computation]]></proceedings_title>
+          <publisher>
+            <publisher_name>IEEE</publisher_name>
+          </publisher>
+          <publication_date>
+            <month>05</month>
+            <year>2009</year>
+          </publication_date>
+          <isbn media_type="print">978-0-7695-3655-2</isbn>
+        </proceedings_metadata>
+        <conference_paper>
+          <contributors>
+            <person_name sequence="first" contributor_role="author">
+              <given_name>X. F.</given_name>
+              <surname>Li</surname>
+            </person_name>
+            <person_name sequence="additional" contributor_role="author">
+              <given_name>Y. H.</given_name>
+              <surname>Zhao</surname>
+            </person_name>
+          </contributors>
+          <titles>
+            <title><![CDATA[Exact Solutions for In-Plane Displacements of Curved Beams under Thermo Load]]></title>
+          </titles>
+          <publication_date>
+            <year>2009</year>
+          </publication_date>
+          <pages>
+            <first_page>193</first_page>
+            <last_page>196</last_page>
+          </pages>
+          <publisher_item>
+            <item_number item_number_type="sequence-number">5167124</item_number>
+          </publisher_item>
+          <doi_data>
+            <doi>10.1109/ICEC.2009.62</doi>
+            <resource>http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=5167124</resource>
+          </doi_data>
+        </conference_paper>
+      </conference>
+    </crossref>
+  </doi_record>
+</doi_records>

@@ -1,0 +1,8 @@
+99.1234/abcdefg
+10/abcdefg
+10./abcdefg
+10.1234/
+10.1234/&
+10.1234/ a bunch of space
+10.1234/trailingspace           
+10.1002/&(SICI)1099-1050(199609)5:5!!447::AID-HEC220!!3.0.CO;2-#&things

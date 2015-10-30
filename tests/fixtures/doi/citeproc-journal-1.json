@@ -1,0 +1,52 @@
+{
+    "subtitle": [],
+    "subject": ["Clinical Psychology", "Psychiatry and Mental health", "Rehabilitation", "Physical Therapy, Sports Therapy and Rehabilitation"],
+    "issued": {
+        "date-parts": [
+            [2007]
+        ]
+    },
+    "score": 1.0,
+    "prefix": "http:\/\/id.crossref.org\/prefix\/10.1037",
+    "author": [{
+        "family": "Tripp",
+        "given": "Dean A."
+    }, {
+        "family": "Stanish",
+        "given": "William"
+    }, {
+        "family": "Ebel-Lam",
+        "given": "Anna"
+    }, {
+        "family": "Brewer",
+        "given": "Britton W."
+    }, {
+        "family": "Birchard",
+        "given": "John"
+    }],
+    "container-title": "Rehabilitation Psychology",
+    "reference-count": 0,
+    "page": "74-81",
+    "deposited": {
+        "date-parts": [
+            [2014, 7, 8]
+        ],
+        "timestamp": 1404777600000
+    },
+    "issue": "1",
+    "title": "Fear of reinjury, negative affect, and catastrophizing predicting return to sport in recreational athletes with anterior cruciate ligament injuries at 1 year postsurgery.",
+    "type": "journal-article",
+    "DOI": "10.1037\/0090-5550.52.1.74",
+    "ISSN": ["1939-1544", "0090-5550"],
+    "URL": "http:\/\/dx.doi.org\/10.1037\/0090-5550.52.1.74",
+    "source": "CrossRef",
+    "publisher": "American Psychological Association (APA)",
+    "indexed": {
+        "date-parts": [
+            [2015, 2, 11]
+        ],
+        "timestamp": 1423633326517
+    },
+    "volume": "52",
+    "member": "http:\/\/id.crossref.org\/member\/15"
+}

@@ -1,0 +1,5 @@
+tmp/
+*.gem
+.DS_Store
+~*
+

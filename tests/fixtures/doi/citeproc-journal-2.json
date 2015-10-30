@@ -1,0 +1,40 @@
+{
+    "subtitle": [],
+    "subject": ["Education"],
+    "issued": {
+        "date-parts": [
+            [2010, 9]
+        ]
+    },
+    "score": 1.0,
+    "prefix": "http:\/\/id.crossref.org\/prefix\/10.1080",
+    "author": [{
+        "family": "Ch\u00e1vez\u2010Reyes",
+        "given": "Christina"
+    }],
+    "container-title": "Teaching Education",
+    "reference-count": 61,
+    "page": "297-311",
+    "deposited": {
+        "date-parts": [
+            [2011, 6, 26]
+        ],
+        "timestamp": 1309046400000
+    },
+    "issue": "3",
+    "title": " Critical liberal education : an undergraduate pedagogy for teacher candidates in socially diverse university settings ",
+    "type": "journal-article",
+    "DOI": "10.1080\/10476210903420072",
+    "ISSN": ["1047-6210", "1470-1286"],
+    "URL": "http:\/\/dx.doi.org\/10.1080\/10476210903420072",
+    "source": "CrossRef",
+    "publisher": "Informa UK Limited",
+    "indexed": {
+        "date-parts": [
+            [2015, 2, 6]
+        ],
+        "timestamp": 1423255633893
+    },
+    "volume": "21",
+    "member": "http:\/\/id.crossref.org\/member\/301"
+}

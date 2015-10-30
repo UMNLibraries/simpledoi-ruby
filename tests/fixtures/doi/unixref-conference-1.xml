@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doi_records>
+  <doi_record owner="10.1109" timestamp="2013-03-27 16:59:02">
+    <crossref>
+      <conference>
+        <event_metadata>
+          <conference_name>2012 IEEE Symposium on Computer Applications and Industrial Electronics (ISCAIE)</conference_name>
+          <conference_location>Kota Kinabalu, Sabah, Malaysia</conference_location>
+          <conference_date start_month="12" start_year="2012" start_day="3" end_month="12" end_year="2012" end_day="4" />
+        </event_metadata>
+        <proceedings_metadata>
+          <proceedings_title>2012 International Symposium on Computer Applications and Industrial Electronics (ISCAIE)</proceedings_title>
+          <publisher>
+            <publisher_name>IEEE</publisher_name>
+          </publisher>
+          <publication_date>
+            <month>12</month>
+            <year>2012</year>
+          </publication_date>
+          <isbn media_type="electronic">978-1-4673-3033-6</isbn>
+          <isbn media_type="print">978-1-4673-3032-9</isbn>
+          <isbn media_type="electronic">978-1-4673-3031-2</isbn>
+        </proceedings_metadata>
+        <conference_paper>
+          <contributors>
+            <person_name sequence="first" contributor_role="author">
+              <given_name>Mehdi</given_name>
+              <surname>Alipour</surname>
+            </person_name>
+            <person_name sequence="additional" contributor_role="author">
+              <given_name>B. Ali</given_name>
+              <surname>Khorramshahi</surname>
+            </person_name>
+            <person_name sequence="additional" contributor_role="author">
+              <given_name>Fatemeh</given_name>
+              <surname>Karimi</surname>
+            </person_name>
+            <person_name sequence="additional" contributor_role="author">
+              <given_name>Zhila</given_name>
+              <surname>Mirzaei</surname>
+            </person_name>
+            <person_name sequence="additional" contributor_role="author">
+              <given_name>Aryo</given_name>
+              <surname>Vaghari</surname>
+            </person_name>
+          </contributors>
+          <titles>
+            <title><![CDATA[Evaluating thread level parallelism based on optimum cache architecture]]></title>
+          </titles>
+          <publication_date>
+            <month>12</month>
+            <year>2012</year>
+          </publication_date>
+          <pages>
+            <first_page>48</first_page>
+            <last_page>53</last_page>
+          </pages>
+          <publisher_item>
+            <item_number item_number_type="arNumber">6482067</item_number>
+          </publisher_item>
+          <doi_data>
+            <doi>10.1109/ISCAIE.2012.6482067</doi>
+            <resource>http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=6482067</resource>
+          </doi_data>
+        </conference_paper>
+      </conference>
+    </crossref>
+  </doi_record>
+</doi_records>

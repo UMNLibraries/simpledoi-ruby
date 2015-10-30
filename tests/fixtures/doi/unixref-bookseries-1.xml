@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doi_records>
+  <doi_record owner="10.1021" timestamp="2009-07-23 20:49:38">
+    <crossref>
+      <book book_type="other">
+        <book_series_metadata language="en">
+          <series_metadata>
+            <titles>
+              <title>ACS Symposium Series</title>
+            </titles>
+            <issn media_type="electronic">1947-5918</issn>
+            <publisher_item>
+              <identifier id_type="doi">10.1021/symposium</identifier>
+            </publisher_item>
+            <doi_data>
+              <doi>10.1021/symposium</doi>
+              <timestamp>200907232049250751</timestamp>
+              <resource>http://pubs.acs.org/series/symposium</resource>
+            </doi_data>
+          </series_metadata>
+          <contributors>
+            <person_name sequence="first" contributor_role="editor">
+              <given_name>Mary T.</given_name>
+              <surname>Nett</surname>
+            </person_name>
+            <person_name sequence="additional" contributor_role="editor">
+              <given_name>Mark J.</given_name>
+              <surname>Carroll</surname>
+            </person_name>
+            <person_name sequence="additional" contributor_role="editor">
+              <given_name>Brian P.</given_name>
+              <surname>Horgan</surname>
+            </person_name>
+            <person_name sequence="additional" contributor_role="editor">
+              <given_name>A. Martin</given_name>
+              <surname>Petrovic</surname>
+            </person_name>
+          </contributors>
+          <titles>
+            <title>The Fate of Nutrients and Pesticides in the Urban Environment</title>
+          </titles>
+          <volume>997</volume>
+          <publication_date media_type="print">
+            <month>09</month>
+            <day>12</day>
+            <year>2008</year>
+          </publication_date>
+          <isbn media_type="print">0-8412-7422-3</isbn>
+          <isbn media_type="electronic">0-8412-2140-5</isbn>
+          <publisher>
+            <publisher_name>American Chemical Society</publisher_name>
+            <publisher_place>Washington, DC</publisher_place>
+          </publisher>
+          <publisher_item>
+            <identifier id_type="doi">10.1021/bk-2008-0997</identifier>
+          </publisher_item>
+          <doi_data>
+            <doi>10.1021/bk-2008-0997</doi>
+            <timestamp>200907232049250751</timestamp>
+            <resource>http://pubs.acs.org/doi/book/10.1021/bk-2008-0997</resource>
+          </doi_data>
+        </book_series_metadata>
+      </book>
+    </crossref>
+  </doi_record>
+</doi_records>

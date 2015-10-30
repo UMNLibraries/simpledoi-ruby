@@ -1,0 +1,46 @@
+{
+    "subtitle": [],
+    "issued": {
+        "date-parts": [
+            [2007]
+        ]
+    },
+    "score": 1.0,
+    "prefix": "http:\/\/id.crossref.org\/prefix\/10.1007",
+    "author": [{
+        "family": "Costello",
+        "given": "Gabriel J."
+    }, {
+        "family": "Donnellan",
+        "given": "Brian"
+    }, {
+        "family": "Gleeson",
+        "given": "Ivor"
+    }, {
+        "family": "Rochford",
+        "given": "Colm"
+    }],
+    "container-title": "",
+    "reference-count": 0,
+    "page": "463-468",
+    "deposited": {
+        "date-parts": [
+            [2014, 1, 7]
+        ],
+        "timestamp": 1389052800000
+    },
+    "title": "The Triple Helix, Open Innovation, and the DOI Research Agenda",
+    "type": "book-chapter",
+    "DOI": "10.1007\/978-0-387-72804-9_32",
+    "ISBN": ["http:\/\/id.crossref.org\/isbn\/978-0-387-72803-2"],
+    "URL": "http:\/\/dx.doi.org\/10.1007\/978-0-387-72804-9_32",
+    "source": "CrossRef",
+    "publisher": "Springer Science + Business Media",
+    "indexed": {
+        "date-parts": [
+            [2015, 2, 13]
+        ],
+        "timestamp": 1423795872992
+    },
+    "member": "http:\/\/id.crossref.org\/member\/297"
+}

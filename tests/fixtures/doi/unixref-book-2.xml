@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doi_records>
+  <doi_record owner="10.1007" timestamp="2014-01-07 14:42:20">
+    <crossref>
+      <book book_type="other">
+        <book_metadata language="en">
+          <contributors>
+            <person_name contributor_role="editor" sequence="first">
+              <given_name>Tom</given_name>
+              <surname>McMaster</surname>
+            </person_name>
+            <person_name contributor_role="editor" sequence="additional">
+              <given_name>David</given_name>
+              <surname>Wastell</surname>
+            </person_name>
+            <person_name contributor_role="editor" sequence="additional">
+              <given_name>Elaine</given_name>
+              <surname>Ferneley</surname>
+            </person_name>
+            <person_name contributor_role="editor" sequence="additional">
+              <given_name>Janice I.</given_name>
+              <surname>DeGross</surname>
+            </person_name>
+          </contributors>
+          <series_metadata>
+            <titles>
+              <title>IFIP International Federation for Information Processing</title>
+            </titles>
+          </series_metadata>
+          <titles>
+            <title>Organizational Dynamics of Technology-Based Innovation: Diversifying the Research Agenda</title>
+          </titles>
+          <volume>235</volume>
+          <publication_date media_type="print">
+            <year>2007</year>
+          </publication_date>
+          <isbn media_type="print">978-0-387-72803-2</isbn>
+          <isbn media_type="electronic">978-0-387-72803-X</isbn>
+          <publisher>
+            <publisher_name>Springer US</publisher_name>
+            <publisher_place>Boston, MA</publisher_place>
+          </publisher>
+          <doi_data>
+            <doi>10.1007/978-0-387-72804-9</doi>
+            <resource>http://www.springerlink.com/index/10.1007/978-0-387-72804-9</resource>
+          </doi_data>
+        </book_metadata>
+        <content_item component_type="chapter" language="en" level_sequence_number="1" publication_type="full_text">
+          <contributors>
+            <person_name contributor_role="author" sequence="first">
+              <given_name>Gabriel J.</given_name>
+              <surname>Costello</surname>
+            </person_name>
+            <person_name contributor_role="author" sequence="additional">
+              <given_name>Brian</given_name>
+              <surname>Donnellan</surname>
+            </person_name>
+            <person_name contributor_role="author" sequence="additional">
+              <given_name>Ivor</given_name>
+              <surname>Gleeson</surname>
+            </person_name>
+            <person_name contributor_role="author" sequence="additional">
+              <given_name>Colm</given_name>
+              <surname>Rochford</surname>
+            </person_name>
+          </contributors>
+          <titles>
+            <title>The Triple Helix, Open Innovation, and the DOI Research Agenda</title>
+          </titles>
+          <component_number>Chapter 32</component_number>
+          <pages>
+            <first_page>463</first_page>
+            <last_page>468</last_page>
+          </pages>
+          <doi_data>
+            <doi>10.1007/978-0-387-72804-9_32</doi>
+            <resource>http://link.springer.com/10.1007/978-0-387-72804-9_32</resource>
+            <collection property="crawler-based" setbyID="springer">
+              <item crawler="iParadigms">
+                <resource>http://www.springerlink.com/index/pdf/10.1007/978-0-387-72804-9_32</resource>
+              </item>
+            </collection>
+          </doi_data>
+        </content_item>
+      </book>
+    </crossref>
+  </doi_record>
+</doi_records>

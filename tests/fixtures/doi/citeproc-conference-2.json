@@ -1,0 +1,39 @@
+{
+    "subtitle": [],
+    "issued": {
+        "date-parts": [
+            [2009]
+        ]
+    },
+    "score": 1.0,
+    "prefix": "http:\/\/id.crossref.org\/prefix\/10.1109",
+    "author": [{
+        "family": "Li",
+        "given": "X. F."
+    }, {
+        "family": "Zhao",
+        "given": "Y. H."
+    }],
+    "container-title": "2009 International Conference on Engineering Computation",
+    "reference-count": 0,
+    "deposited": {
+        "date-parts": [
+            [2010, 12, 8]
+        ],
+        "timestamp": 1291766400000
+    },
+    "title": "Exact Solutions for In-Plane Displacements of Curved Beams under Thermo Load",
+    "type": "proceedings-article",
+    "DOI": "10.1109\/icec.2009.62",
+    "ISBN": ["http:\/\/id.crossref.org\/isbn\/978-0-7695-3655-2"],
+    "URL": "http:\/\/dx.doi.org\/10.1109\/ICEC.2009.62",
+    "source": "CrossRef",
+    "publisher": "Institute of Electrical & Electronics Engineers (IEEE)",
+    "indexed": {
+        "date-parts": [
+            [2015, 2, 12]
+        ],
+        "timestamp": 1423734392661
+    },
+    "member": "http:\/\/id.crossref.org\/member\/263"
+}

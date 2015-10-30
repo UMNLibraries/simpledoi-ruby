@@ -1,0 +1,46 @@
+{
+    "subtitle": [],
+    "issued": {
+        "date-parts": [
+            [2008, 9, 12]
+        ]
+    },
+    "score": 1.0,
+    "prefix": "none",
+    "container-title": "ACS Symposium Series",
+    "reference-count": 0,
+    "deposited": {
+        "date-parts": [
+            [2009, 7, 23]
+        ],
+        "timestamp": 1248307200000
+    },
+    "title": "The Fate of Nutrients and Pesticides in the Urban Environment",
+    "editor": [{
+        "family": "Nett",
+        "given": "Mary T."
+    }, {
+        "family": "Carroll",
+        "given": "Mark J."
+    }, {
+        "family": "Horgan",
+        "given": "Brian P."
+    }, {
+        "family": "Petrovic",
+        "given": "A. Martin"
+    }],
+    "type": "book",
+    "DOI": "10.1021\/bk-2008-0997",
+    "ISSN": ["1947-5918"],
+    "ISBN": ["http:\/\/id.crossref.org\/isbn\/0-8412-7422-3", "http:\/\/id.crossref.org\/isbn\/0-8412-2140-5"],
+    "URL": "http:\/\/dx.doi.org\/10.1021\/bk-2008-0997",
+    "source": "CrossRef",
+    "publisher": "American Chemical Society",
+    "indexed": {
+        "date-parts": [
+            [2015, 2, 12]
+        ],
+        "timestamp": 1423728453987
+    },
+    "member": null
+}
