@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require 'webmock'
 require 'webmock/minitest'
-require_relative '../lib/simple_doi'
+require_relative '../lib/simple_doi/simple_doi'
 
 
 class TestSimpleDOI < MiniTest::Test
