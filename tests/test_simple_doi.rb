@@ -15,14 +15,14 @@ module SimpleDOI
 
       # Test a long list of known good DOIs
       def test_valid_doi
-        File.foreach File.dirname(__FILE__) + '/fixtures/doi/good-doi.txt' do |doi|
+        File.foreach File.dirname(__FILE__) + '/fixtures/good-doi.txt' do |doi|
           assert SimpleDOI.valid?(doi), "#{doi} should be considered a valid DOI"
         end
       end
 
       # Test a list of known faulty DOIs
       def test_invalid_doi
-        File.foreach File.dirname(__FILE__) + '/fixtures/doi/bad-doi.txt' do |doi|
+        File.foreach File.dirname(__FILE__) + '/fixtures/bad-doi.txt' do |doi|
           refute SimpleDOI.valid?(doi), "#{doi} should not be considered a valid DOI"
         end
       end
@@ -72,7 +72,7 @@ module SimpleDOI
       end
 
       def test_extract_doi
-        File.foreach File.dirname(__FILE__) + '/fixtures/doi/extract-single.txt' do |line|
+        File.foreach File.dirname(__FILE__) + '/fixtures/extract-single.txt' do |line|
           expected, haystack = line.split ' ', 2
           assert_equal expected, SimpleDOI.extract(haystack).first, "A DOI #{expected} should be found in the string and returned"
         end
@@ -81,7 +81,7 @@ module SimpleDOI
       def test_extract_multiple_doi
         # Multi tests repeat the same string twice
         # so each should return 2 DOIs and both should match expected
-        File.foreach File.dirname(__FILE__) + '/fixtures/doi/extract-multi.txt' do |line|
+        File.foreach File.dirname(__FILE__) + '/fixtures/extract-multi.txt' do |line|
           expected, haystack = line.split ' ', 2
           found = SimpleDOI.extract haystack
           assert_equal 2, found.count, "Two DOIs should be found in the haystack string '#{haystack}'"

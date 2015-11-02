@@ -6,7 +6,7 @@ module SimpleDOI
     module Test
       class UnixrefXMLParserTest < Minitest::Test
         def fixture_path
-          File.join(File.dirname(__FILE__), 'fixtures','doi')
+          File.join(File.dirname(__FILE__), 'fixtures')
         end
 
         def test_initialize_fail
