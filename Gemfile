@@ -5,6 +5,8 @@ gem 'rake'
 
 # Other
 gem 'curb'
+gem 'nokogiri'
+gem 'json'
 
 # Testing
 group :test do
