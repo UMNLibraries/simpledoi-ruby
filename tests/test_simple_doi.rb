@@ -74,7 +74,9 @@ module SimpleDOI
       def test_extract_doi
         File.foreach File.dirname(__FILE__) + '/fixtures/extract-single.txt' do |line|
           expected, haystack = line.split ' ', 2
-          assert_equal expected, SimpleDOI.extract(haystack).first, "A DOI #{expected} should be found in the string and returned"
+          extracted = SimpleDOI.extract haystack
+          assert_kind_of SimpleDOI::DOI, extracted.first, "The extracted object should be a SimpleDOI::DOI object"
+          assert_equal expected, extracted.first.doi, "A DOI #{expected} should be found in the string and returned"
         end
       end
 
@@ -85,8 +87,8 @@ module SimpleDOI
           expected, haystack = line.split ' ', 2
           found = SimpleDOI.extract haystack
           assert_equal 2, found.count, "Two DOIs should be found in the haystack string '#{haystack}'"
-          assert_equal expected, found.first
-          assert_equal expected, found.last
+          assert_equal expected, found.first.doi
+          assert_equal expected, found.last.doi
         end
       end
 

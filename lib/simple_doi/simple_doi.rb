@@ -25,10 +25,15 @@ module SimpleDOI
   end
 
   # Attempt to extract all DOIs from string
+  # Returns an array of SimpleDOI::DOI objects
   def extract(string)
     list = (string.scan(Regexp.new(DOI_PATTERN))).flatten
     # Calls strip() to make sure nothing like ?nosfx=y remains
-    list.map {|doi| strip doi }
+    list.map! {|doi| strip doi }
+
+    dois = []
+    list.each {|doi| dois.push(SimpleDOI::DOI.new(doi)) if valid?(doi)}
+    dois
   end
 
   # Strip off dx.doi.org extra stuff
@@ -93,7 +98,7 @@ module SimpleDOI
     def suffix
       to_s.split('/', 2).last
     end
-    
+
     # Return an ISSN string if the DOI suffix matches:
     # j.1234-567X
     # issn.1234-567X
