@@ -4,7 +4,6 @@ source 'https://rubygems.org'
 gem 'rake'
 
 # Other
-gem 'curb'
 gem 'nokogiri'
 gem 'json'
 
@@ -12,4 +11,5 @@ gem 'json'
 group :test do
   gem 'minitest'
   gem 'webmock'
+  gem 'curb'
 end

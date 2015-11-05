@@ -3,7 +3,6 @@ require 'webmock'
 require 'webmock/minitest'
 require_relative '../lib/simple_doi/simple_doi'
 
-
 module SimpleDOI
   module Test
     class SimpleDOITest < MiniTest::Test

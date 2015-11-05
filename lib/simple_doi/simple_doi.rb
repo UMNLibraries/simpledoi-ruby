@@ -69,10 +69,18 @@ module SimpleDOI
     attr_reader :body, :response_content_type, :response_code
 
     def initialize(doi)
+      # Prefer curb if available, otherise Net::HTTP
+      if defined?(Curl)
+        @backend = 'curb'
+      elsif defined?(Net::HTTP)
+        @backend = 'net/http'
+      else
+        raise NoBackendError
+      end
+
       raise ArgumentError.new "Supplied string does not appear to be a valid DOI: #{doi}" if !valid?(doi)
       @doi = doi
       @target_url = nil
-      @backend = nil
     end
 
     def to_s
@@ -89,6 +97,10 @@ module SimpleDOI
       else
         raise ArgumentError.new "Only '#{BACKENDS.join("', '")}' are supported"
       end
+    end
+
+    def backend
+      @backend
     end
 
     def prefix
@@ -116,8 +128,6 @@ module SimpleDOI
     # Params:
     # * +accept+:: +String|Array+ Requested Accept: content types may be single string or array
     def lookup(accept=CITEPROC_JSON)
-      raise StandardError.new "You must first specify a backend" if @backend.nil?
-
       # Coerce accept to a 1D array
       accept = [accept].flatten
       @body = nil
@@ -173,8 +183,6 @@ module SimpleDOI
     def target_url
       return @target_url unless @target_url.nil?
 
-      raise StandardError.new "You must first specify a backend" if @backend.nil?
-
       # Perform an HTTP request but don't follow the first redirect
       case @backend
       when 'curb'
@@ -216,4 +224,9 @@ module SimpleDOI
 
   class DOIError < StandardError; end
   class InvalidResponseContentTypeError < DOIError; end
+  class NoBackendError < DOIError
+    def initialize(msg = "No supported backend was found. You must require either 'curb' or 'net/http'")
+      super msg
+    end
+  end
 end
