@@ -10,7 +10,8 @@ require 'simple_doi'
 # Instantiate a DOI object based on a DOI string
 doi = SimpleDOI::DOI.new '10.1000/182'
 
-# Specify "curb" or "net/http" as the resolver backend
+# Override "curb" or "net/http" as the resolver backend
+# Defaults to 'curb' if Curl is already in use, otherwise Net/HTTP
 doi.backend = 'curb'
 
 # Resolve the target URL
@@ -27,7 +28,7 @@ input = 'http://dx.doi.org/10.1000/182'
 # SimpleDOI#extract returns an array of DOI objects
 dois = SimpleDOI.extract input
 puts dois.first.inspect
-# Prints: [#<SimpleDOI::DOI:0x007f6316bf14d8 @doi="10.1000/182", @target_url=nil, @backend=nil>]
+# Prints: [#<SimpleDOI::DOI:0x007f6316bf14d8 @doi="10.1000/182", @target_url=nil, @backend=curb>]
 
 # Note the @target_url has not yet been resolved
 ```
@@ -110,7 +111,7 @@ parser.article_title
 ```
 
 All currently implemented methods are listed in
-[`lib/metadata_parser.rb`](`lib/metadata_parser.rb`)
+[`lib/metadata_parser.rb`](lib/metadata_parser.rb)
 
 ## Backends
 SimpleDOI supports either Net/HTTP or cURL (via Curb) as its resolver backend.
