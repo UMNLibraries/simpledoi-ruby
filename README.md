@@ -58,12 +58,18 @@ puts doi.response_content_type
 doi = SimpleDOI::DOI.new('10.1111/j.1475-3995.1998.tb00130.x')
 
 # Call lookup() and specify the
-json = doi.lookup SimpleDOI::UNIXREF_XML
+xml = doi.lookup SimpleDOI::UNIXREF_XML
 puts doi.response_content_type
 # "application/vnd.crossref.unixref+xml"
 
 # Call lookup() and prefer XML, but fallback to JSON if unavailable
-json = doi.lookup [SimpleDOI::UNIXREF_XML, SimpleDOI::CITEPROC_JSON]
+response = doi.lookup [SimpleDOI::UNIXREF_XML, SimpleDOI::CITEPROC_JSON]
+# Check the response_content_type to verify you got what you wanted
+if doi.response_content_type == SimpleDOI::UNIXREF_XML
+  # Handle it as XML...
+else
+  # Handle it as JSON
+end
 
 ```
 
