@@ -32,12 +32,115 @@ puts dois.first.inspect
 # Note the @target_url has not yet been resolved
 ```
 
+### Retrieve metadata about the target resource
+Via content negotiation `Accept:` headers, JSON or XML metadata can be
+retrieved.  The `SimpleDOI::MetadataParser` module provides _very basic_ parsing
+for `application/citeproc+json` and `application/unixref+xml` content types.
+Review the source files in `lib/metadata_parser/*.rb` to see available metadata
+methods.
+
+Note that not all targets may be able to supply your requested format. Content
+negotiation allows you to request multiple types in order of preference, and the
+`DOI#lookup` method will return the first it could retrieve while setting its
+`response_content_type` property accordingly.
+
+```ruby
+# Retrieve JSON metadata (default format)
+doi = SimpleDOI::DOI.new('10.1111/j.1475-3995.1998.tb00130.x')
+
+# Call lookup() with no format specified for JSON
+json = doi.lookup
+puts doi.response_content_type
+# "application/vnd.citationstyles.csl+json"
+
+# Retrieve Unixref XML
+doi = SimpleDOI::DOI.new('10.1111/j.1475-3995.1998.tb00130.x')
+
+# Call lookup() and specify the
+json = doi.lookup SimpleDOI::UNIXREF_XML
+puts doi.response_content_type
+# "application/vnd.crossref.unixref+xml"
+
+# Call lookup() and prefer XML, but fallback to JSON if unavailable
+json = doi.lookup [SimpleDOI::UNIXREF_XML, SimpleDOI::CITEPROC_JSON]
+
+```
+
+Valid format arguments for `lookup` are `SimpleDOI::UNIXREF_XML,
+SimpleDOI::CITEPROC_JSON`
+
+### Parse returned metadata
+`SimpleDOI::MetadataParser::CiteprocJSONParser` and
+`SimpleDOI::MetadataParser::UnixrefXMLParser` accept the `body` attribute set on
+a `DOI` object after lookup and provide wrapper methods to retrieve certain
+important bibliographic attributes.
+
+```ruby
+# Lookup an identifier, requesting Unixref XML
+doi = SimpleDOI::DOI.new('10.1111/j.1475-3995.1998.tb00130.x')
+doi.lookup SimpleDOI::UNIXREF_XML
+
+# Pass the body to a UnixrefXMLParser initializer
+parser = SimpleDOI::MetadataParser::UnixrefXMLParser.new(doi.body)
+
+# Is it a book/mongraph?
+parser.book?
+# false
+
+# Is it a journal/serial?
+parser.journal?
+# true
+
+# Is it a conference proceeding?
+parser.conference_proceeding?
+# false
+
+# Get the ISSN
+parser.issn
+# "0969-6016"
+
+# Get the journal title
+parser.journal_title
+# "International Transactions in Operational Research"
+
+# Get the article title
+parser.article_title
+# "Passenger Choice Analysis for Seat Capacity Control...."
+
+```
+
+All currently implemented methods are listed in
+[`lib/metadata_parser.rb`](`lib/metadata_parser.rb`)
+
 ## Backends
 SimpleDOI supports either Net/HTTP or cURL (via Curb) as its resolver backend.
 On instantiation, it will attempt to detect if Curb is present and use it,
 falling back to Net/HTTP, and raising an error if neither is available.
 
+The purpose of this is to avoid having to `require` curl when Net/HTTP is
+already in use. It comes at the cost of not declaring the Curb dependency and is
+maybe not helpful. It could be removed in the future, depending on one or the
+other.
+
+If neither `curb` nor `net/http` has been required previously,
+`SimpleDOI::DOI.new` will raise an error.
+
 ## Supported DOIs
+The University of Minnesota Libraries has collected many diverse thousands of
+DOIs, mostly from URLs passing through proxy servers. This library attempts to
+support all of those. They range from very simple to extremely complex.
+
+- `10.1023/B:SOVI.0000043002.02424.ca`
+- `10.1002/(SICI)1099-1050(199609)5:5!!447::AID-HEC220!!3.0.CO;2-#`
+
+Certain common patterns are used to extract additional ISSN or ISBN identifiers
+from the DOIs.
+
+- `10.1007/978-1-4419-1570-2_9` will yield `978-1-4419-1570-2` as its ISBN
+- `10.1111/j.1475-3995.1998.tb00130.x` will yield `1475-3995` as its ISSN
+
+For many examples of supported strings, see
+[`tests/fixtures/good-doi.txt`](tests/fixtures/good-doi.txt).
 
 ## Building the gem
 ```shell
