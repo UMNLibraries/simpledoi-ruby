@@ -18,7 +18,7 @@ module SimpleDOI
         def test_initialize
           xml_str = File.read("#{fixture_path}/unixref-journal-1.xml")
           xml = UnixrefXMLParser.new xml_str
-          assert_equal xml_str, xml.str, "The input XML string should be available as a property"
+          assert_equal xml_str, xml.str, 'The input XML string should be available as a property'
         end
 
         def test_type

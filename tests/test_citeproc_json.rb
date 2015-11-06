@@ -14,30 +14,33 @@ module SimpleDOI
             CiteprocJSONParser.new 'this is not json'
           end
         end
+
         def test_initialize
           json_str = File.read("#{fixture_path}/citeproc-journal-1.json")
           json = CiteprocJSONParser.new json_str
-          assert_equal json_str, json.str, "The input JSON string should be available as a property"
+          assert_equal json_str, json.str, 'The input JSON string should be available as a property'
         end
+
         def test_type
           json = CiteprocJSONParser.new File.read("#{fixture_path}/citeproc-journal-1.json")
-          assert json.is_journal?, "The input JSON should represent a journal type"
+          assert json.is_journal?, 'The input JSON should represent a journal type'
 
           json = CiteprocJSONParser.new File.read("#{fixture_path}/citeproc-journal-2.json")
-          assert json.is_journal?, "The input JSON should represent a journal type"
-          refute json.is_book?, "The input JSON should not represent a book type"
-          refute json.is_book_series?, "The input JSON should not represent a book series type"
+          assert json.is_journal?, 'The input JSON should represent a journal type'
+          refute json.is_book?, 'The input JSON should not represent a book type'
+          refute json.is_book_series?, 'The input JSON should not represent a book series type'
 
           json = CiteprocJSONParser.new File.read("#{fixture_path}/citeproc-book-2.json")
-          assert json.is_book?, "The input JSON should represent a book type"
-          refute json.is_book_series?, "The input JSON should not represent a book series type"
-          refute json.is_journal?, "The input JSON should not represent a journal type"
-          
+          assert json.is_book?, 'The input JSON should represent a book type'
+          refute json.is_book_series?, 'The input JSON should not represent a book series type'
+          refute json.is_journal?, 'The input JSON should not represent a journal type'
+
           json = CiteprocJSONParser.new File.read("#{fixture_path}/citeproc-bookseries-1.json")
-          assert json.is_book_series?, "The input JSON should represent a book series type"
-          refute json.is_book?, "The input JSON should not represent a book type"
-          refute json.is_journal?, "The input JSON should not represent a journal type"
+          assert json.is_book_series?, 'The input JSON should represent a book series type'
+          refute json.is_book?, 'The input JSON should not represent a book type'
+          refute json.is_journal?, 'The input JSON should not represent a journal type'
         end
+
         def test_journal
           json = CiteprocJSONParser.new File.read("#{fixture_path}/citeproc-journal-1.json")
           assert_equal 'Rehabilitation Psychology', json.journal_title
@@ -64,6 +67,7 @@ module SimpleDOI
           assert_nil h[:eisbn]
           assert_nil h[:book_title]
         end
+
         def test_book
           json = CiteprocJSONParser.new File.read("#{fixture_path}/citeproc-book-2.json")
           assert_equal 'The Triple Helix, Open Innovation, and the DOI Research Agenda', json.book_title
@@ -107,11 +111,11 @@ module SimpleDOI
 
         def test_conference_proceeding
           json = CiteprocJSONParser.new File.read("#{fixture_path}/citeproc-conference-2.json")
-          assert_equal "Exact Solutions for In-Plane Displacements of Curved Beams under Thermo Load", json.article_title
-          assert_equal "2009 International Conference on Engineering Computation", json.book_title
-          assert_equal "2009 International Conference on Engineering Computation", json.book_series_title
-          assert_equal "978-0-7695-3655-2", json.isbn
-          assert_equal "10.1109\/icec.2009.62", json.doi
+          assert_equal 'Exact Solutions for In-Plane Displacements of Curved Beams under Thermo Load', json.article_title
+          assert_equal '2009 International Conference on Engineering Computation', json.book_title
+          assert_equal '2009 International Conference on Engineering Computation', json.book_series_title
+          assert_equal '978-0-7695-3655-2', json.isbn
+          assert_equal '10.1109/icec.2009.62', json.doi
         end
       end
     end

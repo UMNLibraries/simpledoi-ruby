@@ -1,0 +1,8 @@
+Style/LineLength:
+  Enabled: false
+
+Style/MethodLength:
+  Enabled: false
+
+Style/ClassLength:
+  Enabled: false

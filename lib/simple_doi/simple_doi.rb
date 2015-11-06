@@ -2,13 +2,15 @@ require 'json'
 require 'cgi'
 require 'uri'
 
+# A simple DOI handling library
+# Capable of validating DOIs and retrieving metadata
 module SimpleDOI
   CITEPROC_JSON = 'application/vnd.citationstyles.csl+json'
   UNIXREF_XML = 'application/vnd.crossref.unixref+xml'
 
   # Regex pattern NOT anchored with ^$
   # Validation will add anchors
-  #DOI_PATTERN = '\b(10\.[\d]{4,}(?:\.[\d]+)*\/(?:(?!["&\'<>])[[:graph:]])+)\b'
+  # DOI_PATTERN = '\b(10\.[\d]{4,}(?:\.[\d]+)*\/(?:(?!["&\'<>])[[:graph:]])+)\b'
   DOI_PATTERN = '\b(10\.[\d]+(?:\.[\d]+)*\/(?:(?!["&\'])[[:graph:]])+)\b?'
 
   STRIP_PATTERNS = [
@@ -29,10 +31,10 @@ module SimpleDOI
   def extract(string)
     list = (string.scan(Regexp.new(DOI_PATTERN))).flatten
     # Calls strip() to make sure nothing like ?nosfx=y remains
-    list.map! {|doi| strip doi }
+    list.map! { |doi| strip doi }
 
     dois = []
-    list.each {|doi| dois.push(SimpleDOI::DOI.new(doi)) if valid?(doi)}
+    list.each { |doi| dois.push(SimpleDOI::DOI.new(doi)) if valid?(doi) }
     dois
   end
 
@@ -53,12 +55,14 @@ module SimpleDOI
     string.sub!(/\/$/, '')
 
     # Aggressively strip known URL patterns which tend not to be part
-    STRIP_PATTERNS.each  {|pattern| string.sub!(pattern, '')}
+    STRIP_PATTERNS.each { |pattern| string.sub!(pattern, '') }
 
     string
   end
   module_function :valid?, :extract, :strip
 
+  # Represents a DOI object capable of being resolved to a target URL or
+  # full metadata retrieved.
   class DOI
     include SimpleDOI
 
@@ -66,7 +70,9 @@ module SimpleDOI
 
     BACKENDS = %w(curb net/http)
 
-    attr_reader :body, :response_content_type, :response_code
+    REDIR_CODES = [301, 302, 303]
+
+    attr_reader :body, :response_content_type, :response_code, :backend, :doi
 
     def initialize(doi)
       # Prefer curb if available, otherise Net::HTTP
@@ -78,15 +84,12 @@ module SimpleDOI
         raise NoBackendError
       end
 
-      raise ArgumentError.new "Supplied string does not appear to be a valid DOI: #{doi}" if !valid?(doi)
+      raise ArgumentError, "Supplied string does not appear to be a valid DOI: #{doi}" unless valid?(doi)
       @doi = doi
       @target_url = nil
     end
 
     def to_s
-      @doi
-    end
-    def doi
       @doi
     end
 
@@ -95,12 +98,8 @@ module SimpleDOI
         @backend = backend
         require backend
       else
-        raise ArgumentError.new "Only '#{BACKENDS.join("', '")}' are supported"
+        raise ArgumentError, "Only '#{BACKENDS.join("', '")}' are supported"
       end
-    end
-
-    def backend
-      @backend
     end
 
     def prefix
@@ -127,7 +126,7 @@ module SimpleDOI
     # Returns: +String+ HTTP response body
     # Params:
     # * +accept+:: +String|Array+ Requested Accept: content types may be single string or array
-    def lookup(accept=CITEPROC_JSON)
+    def lookup(accept = CITEPROC_JSON)
       # Coerce accept to a 1D array
       accept = [accept].flatten
       @body = nil
@@ -191,22 +190,23 @@ module SimpleDOI
           request.follow_location = false
         end
         client.perform
-        location = client.header_str.scan(/location:\s+(\S+)/i).flatten.first if [301,302,303].include? client.response_code.to_i
+        location = client.header_str.scan(/location:\s+(\S+)/i).flatten.first if REDIR_CODES.include? client.response_code.to_i
       when 'net/http'
         uri = URI.parse url
         client = Net::HTTP.new uri.host
         request = Net::HTTP::Get.new uri.request_uri
         response = client.request request
-        location = response['location'] if ['301','302','303'].include? response.code
+        location = response['location'] if REDIR_CODES.map(&:to_s).include? response.code
       end
       @target_url = location
     end
 
     def url
-      LOOKUP_URL_ROOT + CGI::escape(to_s)
+      LOOKUP_URL_ROOT + CGI.escape(to_s)
     end
 
     protected
+
     def net_http_response_redirect(uri, type)
       client = Net::HTTP.new uri.host
       request = Net::HTTP::Get.new uri.request_uri
@@ -214,8 +214,8 @@ module SimpleDOI
       response = client.request request
 
       # Recurse until done redirecting
-      if ['301','302','303'].include? response.code
-        response = net_http_response_redirect(URI.parse(response['location']), type)
+      if REDIR_CODES.map(&:to_s).include? response.code
+        net_http_response_redirect(URI.parse(response['location']), type)
       else
         response
       end
@@ -224,6 +224,8 @@ module SimpleDOI
 
   class DOIError < StandardError; end
   class InvalidResponseContentTypeError < DOIError; end
+
+  # Raised when no supported HTTP client backend was found in the constant space
   class NoBackendError < DOIError
     def initialize(msg = "No supported backend was found. You must require either 'curb' or 'net/http'")
       super msg

@@ -74,7 +74,7 @@ module SimpleDOI
         File.foreach File.dirname(__FILE__) + '/fixtures/extract-single.txt' do |line|
           expected, haystack = line.split ' ', 2
           extracted = SimpleDOI.extract haystack
-          assert_kind_of SimpleDOI::DOI, extracted.first, "The extracted object should be a SimpleDOI::DOI object"
+          assert_kind_of SimpleDOI::DOI, extracted.first, 'The extracted object should be a SimpleDOI::DOI object'
           assert_equal expected, extracted.first.doi, "A DOI #{expected} should be found in the string and returned"
         end
       end
@@ -102,7 +102,7 @@ module SimpleDOI
           ['1234-123X', '10.1234/1234-123X(STUFF)abcd'],
           ['1234-123X', '10.1234/1234-123X.abcd'],
           ['1234-123X', '10.1234/S1234-123X(STUFF).abcd'],
-          ['1234-123X', '10.1234/(ISSN)1234-123X.STUFF.abcd'],
+          ['1234-123X', '10.1234/(ISSN)1234-123X.STUFF.abcd']
         ]
         bad_issn = [
           '10.1234/j.12345-1234.abc',
@@ -111,7 +111,7 @@ module SimpleDOI
           '10.1234/issn.1234-123z.abc',
           '10.1234/1234-1234noboundary.abc',
           '10.1234/1234-123tooshort.abc',
-          '10.1234/XYZS1234-123X(STUFF).abcd',
+          '10.1234/XYZS1234-123X(STUFF).abcd'
         ]
         good_issn.each do |pair|
           doi = SimpleDOI::DOI.new pair[1]
@@ -131,12 +131,12 @@ module SimpleDOI
       def test_lookup_json
         # Mock a set of returns first to dx.doi.org with a location redirect,
         # then to a target resource returning JSON
-        expected = {"prop1"=>"property", "prop2"=>"property"}
+        expected = { 'prop1' => 'property', 'prop2' => 'property' }
 
         stub_request(:get, /http:\/\/dx.doi.org\/(.+)json/)
-          .to_return(body: 'This is redirecting', status: 301, headers: {'location' => 'http://example.com/doijson'})
+          .to_return(body: 'This is redirecting', status: 301, headers: { 'location' => 'http://example.com/doijson' })
         stub_request(:get, 'http://example.com/doijson')
-          .to_return(body: expected.to_json, status: 200, headers: {'content-type' => 'application/citeproc+json'})
+          .to_return(body: expected.to_json, status: 200, headers: { 'content-type' => 'application/citeproc+json' })
 
         # Lookup with curb
         doi = SimpleDOI::DOI.new '10.1234/abcd.json'
@@ -156,14 +156,14 @@ module SimpleDOI
         expected = '<?xml version="1.1><root><node>value</node>"'
 
         stub_request(:get, /http:\/\/dx.doi.org\/(.+)xml/)
-          .to_return(body: 'This is redirecting', status: 301, headers: {'location' => 'http://example.com/doixml'})
+          .to_return(body: 'This is redirecting', status: 301, headers: { 'location' => 'http://example.com/doixml' })
         stub_request(:get, 'http://example.com/doixml')
-          .to_return(body: expected, status: 200, headers: {'content-type' => 'application/unixref+xml'})
+          .to_return(body: expected, status: 200, headers: { 'content-type' => 'application/unixref+xml' })
 
         # Lookup with curb
         doi = SimpleDOI::DOI.new '10.1234/efgh.xml'
-        assert_nil doi.response_content_type, "No content type should be set before lookup"
-        assert_nil doi.body, "No body should be set before lookup"
+        assert_nil doi.response_content_type, 'No content type should be set before lookup'
+        assert_nil doi.body, 'No body should be set before lookup'
 
         doi.backend = 'curb'
         hash = doi.lookup_xml
@@ -184,21 +184,21 @@ module SimpleDOI
         expected_xml = '<?xml version="1.1><root><node>value</node>"'
 
         stub_request(:get, /http:\/\/dx.doi.org\/(.+)xml/)
-          .to_return(body: 'This is redirecting', status: 301, headers: {'location' => 'http://example.com/doixml'})
+          .to_return(body: 'This is redirecting', status: 301, headers: { 'location' => 'http://example.com/doixml' })
         stub_request(:get, 'http://example.com/doixml')
-          .to_return(body: expected_xml, status: 200, headers: {'content-type' => 'application/unixref+xml'})
+          .to_return(body: expected_xml, status: 200, headers: { 'content-type' => 'application/unixref+xml' })
 
         expected_json = '{"prop1":"property", "prop2":"property"}'
 
         stub_request(:get, /http:\/\/dx.doi.org\/(.+)json/)
-          .to_return(body: 'This is redirecting', status: 301, headers: {'location' => 'http://example.com/doijson'})
+          .to_return(body: 'This is redirecting', status: 301, headers: { 'location' => 'http://example.com/doijson' })
         stub_request(:get, 'http://example.com/doijson')
-          .to_return(body: expected_json, status: 200, headers: {'content-type' => 'application/citeproc+json'})
+          .to_return(body: expected_json, status: 200, headers: { 'content-type' => 'application/citeproc+json' })
 
         # Lookup with curb
         doi = SimpleDOI::DOI.new '10.1234/efgh.xml'
-        assert_nil doi.response_content_type, "No content type should be set before lookup"
-        assert_nil doi.body, "No body should be set before lookup"
+        assert_nil doi.response_content_type, 'No content type should be set before lookup'
+        assert_nil doi.body, 'No body should be set before lookup'
 
         doi.backend = 'curb'
         # Lookup preferring xml
@@ -209,8 +209,8 @@ module SimpleDOI
 
         # No XML return, should get JSON
         doi = SimpleDOI::DOI.new '10.1234/efgh.json'
-        assert_nil doi.response_content_type, "No content type should be set before lookup"
-        assert_nil doi.body, "No body should be set before lookup"
+        assert_nil doi.response_content_type, 'No content type should be set before lookup'
+        assert_nil doi.body, 'No body should be set before lookup'
 
         doi.backend = 'curb'
         # Lookup preferring xml, but actually get JSON
@@ -222,32 +222,32 @@ module SimpleDOI
 
       def test_lookup_404
         stub_request(:get, 'http://dx.doi.org/10.1234%2Fnotexist')
-          .to_return(body: 'DOI DOES NOT EXIST', status: 404, headers: {'content-type' => 'text/html'})
+          .to_return(body: 'DOI DOES NOT EXIST', status: 404, headers: { 'content-type' => 'text/html' })
 
         # Lookup with curb
         doi = SimpleDOI::DOI.new '10.1234/notexist'
         doi.backend = 'curb'
-        assert_nil doi.lookup_json, "Non-existing DOI should return nil"
+        assert_nil doi.lookup_json, 'Non-existing DOI should return nil'
         assert_nil doi.body
         assert_nil doi.response_content_type
 
         # Lookup with Net::HTTP
         doi = SimpleDOI::DOI.new '10.1234/notexist'
         doi.backend = 'net/http'
-        assert_nil doi.lookup_json, "Non-existing DOI should return nil"
+        assert_nil doi.lookup_json, 'Non-existing DOI should return nil'
         assert_nil doi.body
         assert_nil doi.response_content_type
       end
 
       def test_invalid_content_type_raises_exception
         stub_request(:get, /http:\/\/dx.doi.org\/(.+)/)
-          .to_return(body: 'This is redirecting', status: 301, headers: {'location' => 'http://example.com/doijson'})
+          .to_return(body: 'This is redirecting', status: 301, headers: { 'location' => 'http://example.com/doijson' })
         stub_request(:get, 'http://example.com/doijson')
-          .to_return(body: 'This returns HTML', status: 200, headers: {'content-type' => 'text/html'})
+          .to_return(body: 'This returns HTML', status: 200, headers: { 'content-type' => 'text/html' })
 
         doi = SimpleDOI::DOI.new '10.1234/abcd'
         doi.backend = 'curb'
-        assert_raises SimpleDOI::InvalidResponseContentTypeError, "An error should be raised when an unsupported content-type is returned" do
+        assert_raises SimpleDOI::InvalidResponseContentTypeError, 'An error should be raised when an unsupported content-type is returned' do
           doi.lookup
           puts doi.response_code
           puts doi.response_content_type
@@ -258,7 +258,7 @@ module SimpleDOI
 
       def test_target_url
         stub_request(:get, 'http://dx.doi.org/10.1234%2Ftarget')
-          .to_return(body: 'REDIRECT TO LOCATION', status: 301, headers: {'location' => 'http://example.com/target'})
+          .to_return(body: 'REDIRECT TO LOCATION', status: 301, headers: { 'location' => 'http://example.com/target' })
         stub_request(:get, 'http://dx.doi.org/10.1234%2Ftarget_notexist')
           .to_return(body: 'DOI DOES NOT EXIST', status: 404)
 
