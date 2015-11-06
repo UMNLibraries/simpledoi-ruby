@@ -23,22 +23,22 @@ module SimpleDOI
 
         def test_type
           json = CiteprocJSONParser.new File.read("#{fixture_path}/citeproc-journal-1.json")
-          assert json.is_journal?, 'The input JSON should represent a journal type'
+          assert json.journal?, 'The input JSON should represent a journal type'
 
           json = CiteprocJSONParser.new File.read("#{fixture_path}/citeproc-journal-2.json")
-          assert json.is_journal?, 'The input JSON should represent a journal type'
-          refute json.is_book?, 'The input JSON should not represent a book type'
-          refute json.is_book_series?, 'The input JSON should not represent a book series type'
+          assert json.journal?, 'The input JSON should represent a journal type'
+          refute json.book?, 'The input JSON should not represent a book type'
+          refute json.book_series?, 'The input JSON should not represent a book series type'
 
           json = CiteprocJSONParser.new File.read("#{fixture_path}/citeproc-book-2.json")
-          assert json.is_book?, 'The input JSON should represent a book type'
-          refute json.is_book_series?, 'The input JSON should not represent a book series type'
-          refute json.is_journal?, 'The input JSON should not represent a journal type'
+          assert json.book?, 'The input JSON should represent a book type'
+          refute json.book_series?, 'The input JSON should not represent a book series type'
+          refute json.journal?, 'The input JSON should not represent a journal type'
 
           json = CiteprocJSONParser.new File.read("#{fixture_path}/citeproc-bookseries-1.json")
-          assert json.is_book_series?, 'The input JSON should represent a book series type'
-          refute json.is_book?, 'The input JSON should not represent a book type'
-          refute json.is_journal?, 'The input JSON should not represent a journal type'
+          assert json.book_series?, 'The input JSON should represent a book series type'
+          refute json.book?, 'The input JSON should not represent a book type'
+          refute json.journal?, 'The input JSON should not represent a journal type'
         end
 
         def test_journal

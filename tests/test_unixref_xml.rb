@@ -23,37 +23,37 @@ module SimpleDOI
 
         def test_type
           xml = UnixrefXMLParser.new File.read("#{fixture_path}/unixref-journal-1.xml")
-          assert xml.is_journal?
+          assert xml.journal?
 
           xml = UnixrefXMLParser.new File.read("#{fixture_path}/unixref-journal-2.xml")
-          assert xml.is_journal?
-          refute xml.is_book?
-          refute xml.is_book_series?
-          refute xml.is_conference_proceeding?
+          assert xml.journal?
+          refute xml.book?
+          refute xml.book_series?
+          refute xml.conference_proceeding?
 
           xml = UnixrefXMLParser.new File.read("#{fixture_path}/unixref-book-2.xml")
-          assert xml.is_book?
-          refute xml.is_book_series?
-          refute xml.is_journal?
-          refute xml.is_conference_proceeding?
+          assert xml.book?
+          refute xml.book_series?
+          refute xml.journal?
+          refute xml.conference_proceeding?
           
           xml = UnixrefXMLParser.new File.read("#{fixture_path}/unixref-bookseries-1.xml")
-          assert xml.is_book_series?
-          refute xml.is_book?
-          refute xml.is_journal?
-          refute xml.is_conference_proceeding?
+          assert xml.book_series?
+          refute xml.book?
+          refute xml.journal?
+          refute xml.conference_proceeding?
 
           xml = UnixrefXMLParser.new File.read("#{fixture_path}/unixref-conference-1.xml")
-          assert xml.is_conference_proceeding?
-          refute xml.is_book?
-          refute xml.is_journal?
-          refute xml.is_book_series?
+          assert xml.conference_proceeding?
+          refute xml.book?
+          refute xml.journal?
+          refute xml.book_series?
 
           xml = UnixrefXMLParser.new File.read("#{fixture_path}/unixref-conference-2.xml")
-          assert xml.is_conference_proceeding?
-          refute xml.is_book?
-          refute xml.is_journal?
-          refute xml.is_book_series?
+          assert xml.conference_proceeding?
+          refute xml.book?
+          refute xml.journal?
+          refute xml.book_series?
         end
 
         def test_journal

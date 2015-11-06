@@ -10,24 +10,24 @@ module SimpleDOI
         @json = JSON.parse(@str)
       end
 
-      def is_journal?
+      def journal?
         @json['type'] =~ /journal/i
       end
 
-      def is_book?
+      def book?
         @json['type'] =~ /book/i && @json['container-title'].to_s.empty?
       end
 
-      def is_book_series?
+      def book_series?
         @json['type'] =~ /book/i && !@json['container-title'].to_s.empty?
       end
 
-      def is_conference_proceeding?
+      def conference_proceeding?
         @json['type'] =~ /proceedings/
       end
 
       def journal_title
-        @json['container-title'] if is_journal?
+        @json['container-title'] if journal?
       end
 
       def journal_isoabbrev_title
@@ -35,19 +35,19 @@ module SimpleDOI
       end
 
       def book_title
-        if is_book? || is_book_series?
+        if book? || book_series?
           @json['title']
-        elsif is_conference_proceeding?
+        elsif conference_proceeding?
           @json['container-title']
         end
       end
 
       def book_series_title
-        @json['container-title'] if is_book_series? || is_conference_proceeding?
+        @json['container-title'] if book_series? || conference_proceeding?
       end
 
       def article_title
-        @json['title'].strip if is_journal? || is_conference_proceeding?
+        @json['title'].strip if journal? || conference_proceeding?
       end
 
       # Cannot distinguish between ISSN,eISSN so just take the first one

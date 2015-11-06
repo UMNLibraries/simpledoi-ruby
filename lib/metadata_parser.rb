@@ -1,5 +1,6 @@
 module SimpleDOI
   module MetadataParser
+    # Metadata parser base class
     class Parser
       PROPERTIES = [
         :book_title,
@@ -24,9 +25,18 @@ module SimpleDOI
       def initialize(str)
         @str = str
       end
-      def is_journal?; raise NotImplementedError; end
-      def is_book?; raise NotImplementedError; end
-      def is_book_series?; raise NotImplementedError; end
+
+      def journal?
+        raise NotImplementedError
+      end
+
+      def book?
+        raise NotImplementedError
+      end
+
+      def book_series?
+        raise NotImplementedError
+      end
 
       # Return all properties as a Hash
       def to_hash

@@ -17,26 +17,26 @@ module SimpleDOI
         @xml = Nokogiri::XML(@str) { |opts| opts.strict }
       end
 
-      def is_book?
+      def book?
         !@xml.search("/#{XPATH_ROOT}/book/book_metadata").empty?
       end
 
-      def is_book_series?
+      def book_series?
         !@xml.search("/#{XPATH_ROOT}/book/book_series_metadata").empty?
       end
 
-      def is_conference_proceeding?
+      def conference_proceeding?
         !@xml.search("/#{XPATH_ROOT}/conference/proceedings_metadata").empty?
       end
 
-      def is_journal?
+      def journal?
         !@xml.search("/#{XPATH_ROOT}/journal").empty?
       end
 
       def book_title
-        if is_book_series?
+        if book_series?
           @book_title ||= @xml.search("/#{XPATH_ROOT}/book/book_series_metadata/titles/title").first.text.strip rescue nil
-        elsif is_conference_proceeding?
+        elsif conference_proceeding?
           @book_title ||= @xml.search("/#{XPATH_ROOT}/conference/proceedings_metadata/proceedings_title").first.text.strip rescue nil
         else
           @book_title ||= @xml.search("/#{XPATH_ROOT}/book/book_metadata/titles/title").first.text.strip rescue nil
@@ -76,7 +76,7 @@ module SimpleDOI
       end
 
       def article_title
-        if is_conference_proceeding?
+        if conference_proceeding?
           @article_title ||= @xml.search("/#{XPATH_ROOT}/conference/conference_paper/titles/title").first.text.strip rescue nil
         else
           @article_title ||= @xml.search("/#{XPATH_ROOT}/journal/journal_article/titles/title").first.text.strip rescue nil
@@ -95,11 +95,11 @@ module SimpleDOI
 
       def doi_path
         xpath = XPATH_ROOT
-        if is_journal?
+        if journal?
           xpath + '/journal/journal_article/doi_data'
-        elsif is_book?
+        elsif book?
           xpath + '/book/book_metadata/doi_data'
-        elsif is_book_series?
+        elsif book_series?
           xpath + '/book/book_series_metadata/doi_data'
         else
           xpath + '//doi_data'
