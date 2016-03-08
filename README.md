@@ -141,7 +141,9 @@ support all of those. They range from very simple to extremely complex.
 - `10.1002/(SICI)1099-1050(199609)5:5!!447::AID-HEC220!!3.0.CO;2-#`
 
 Certain common patterns are used to extract additional ISSN or ISBN identifiers
-from the DOIs.
+from the DOIs. **Note**: These are strictly pattern matches from the DOI string,
+and therefore not guaranteed to actually _be_ ISSNs or ISBNs. In our experience,
+and for our purposes they are sufficient.
 
 - `10.1007/978-1-4419-1570-2_9` will yield `978-1-4419-1570-2` as its ISBN
 - `10.1111/j.1475-3995.1998.tb00130.x` will yield `1475-3995` as its ISSN
