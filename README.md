@@ -77,6 +77,12 @@ Valid format arguments for `lookup` are `SimpleDOI::UNIXREF_XML,
 SimpleDOI::CITEPROC_JSON`
 
 ### Parse returned metadata
+The metadata format parsers included with this library are not comprehensive.  
+They present a common, simple interface to retrieve certain metadata components 
+we have needed in the past, but if you have more complex requirements you can 
+always pass the response body to a general purpose interface like `JSON` or 
+`Nokogiri`.
+
 `SimpleDOI::MetadataParser::CiteprocJSONParser` and
 `SimpleDOI::MetadataParser::UnixrefXMLParser` accept the `body` attribute set on
 a `DOI` object after lookup and provide wrapper methods to retrieve certain
