@@ -1,2 +1,6 @@
 # travisci
 language: ruby
+
+rvm:
+  - 2.2.2
+  - 2.3.0
