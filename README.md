@@ -11,7 +11,7 @@ require 'simple_doi'
 doi = SimpleDOI::DOI.new '10.1000/182'
 
 # Override "curb" or "net/http" as the resolver backend
-# Defaults to 'curb' if Curl is already in use, otherwise Net/HTTP
+# Defaults to 'curb' if Curl is already in use (curb already required), otherwise Net/HTTP
 doi.backend = 'curb'
 
 # Resolve the target URL
