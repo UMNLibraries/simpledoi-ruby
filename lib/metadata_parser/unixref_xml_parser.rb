@@ -52,7 +52,8 @@ module SimpleDOI
       end
 
       def isbn
-        @isbn ||= @xml.search("/#{XPATH_ROOT}//isbn[@media_type=\"print\"]").first.text.strip rescue nil
+        # Usually includes media_type="print" but some vendors supply <isbn> with no attributes
+        @isbn ||= @xml.search("/#{XPATH_ROOT}//isbn[not(@media_type) or @media_type=\"print\"]").first.text.strip rescue nil
       end
 
       def eisbn
