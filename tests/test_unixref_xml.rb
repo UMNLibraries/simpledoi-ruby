@@ -78,6 +78,12 @@ module SimpleDOI
           assert_nil xml.book_series_title
         end
 
+        def test_issn_without_print_attribute
+          xml = UnixrefXMLParser.new File.read("#{fixture_path}/unixref-journal-1-noissnattr.xml")
+          assert_equal '0090-5550', xml.issn
+          assert_equal '1939-1544', xml.eissn
+        end
+
         def test_journal_to_hash
           xml = UnixrefXMLParser.new File.read("#{fixture_path}/unixref-journal-1.xml")
           h = xml.to_hash

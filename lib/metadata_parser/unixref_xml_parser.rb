@@ -68,7 +68,8 @@ module SimpleDOI
       end
 
       def issn
-        @issn ||= @xml.search("/#{XPATH_ROOT}//issn[@media_type=\"print\"]").first.text.strip rescue nil
+        # Usually includes media_type="print" but some vendors supply <issn> with no attributes
+        @issn ||= @xml.search("/#{XPATH_ROOT}//issn[not(@media_type) or @media_type=\"print\"]").first.text.strip rescue nil
       end
 
       def eissn
