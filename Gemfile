@@ -4,12 +4,12 @@ source 'https://rubygems.org'
 gem 'rake'
 
 # Other
-gem 'nokogiri'
+gem 'nokogiri', '>=1.8.2'
 gem 'json'
 
 # Testing
 group :test do
-  gem 'minitest'
-  gem 'webmock'
-  gem 'curb'
+  gem 'minitest', '~>5.11'
+  gem 'webmock', '~>3.3'
+  gem 'curb', '~>0.9'
 end
