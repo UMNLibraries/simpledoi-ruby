@@ -120,7 +120,7 @@ module SimpleDOI
           assert_equal 'http://link.springer.com/10.1007/978-0-387-72804-9', xml.url
         end
 
-        def test_issn_without_print_attribute
+        def test_isbn_without_print_attribute
           xml = UnixrefXMLParser.new File.read("#{fixture_path}/unixref-book-2-noisbnattr.xml")
           assert_equal '978-0-387-72803-2', xml.isbn
           assert_equal '978-0-387-72803-X', xml.eisbn
