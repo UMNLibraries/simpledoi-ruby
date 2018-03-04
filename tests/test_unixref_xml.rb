@@ -88,9 +88,9 @@ module SimpleDOI
           assert_equal '1939-1544', xml.eissn
         end
 
-        def test_journal_to_hash
+        def test_journal_to_h
           xml = UnixrefXMLParser.new File.read("#{fixture_path}/unixref-journal-1.xml")
-          h = xml.to_hash
+          h = xml.to_h
           assert_equal 'Rehabilitation Psychology', h[:journal_title]
           assert_equal 'Rehab. Psych.', h[:journal_isoabbrev_title]
           assert_equal '0090-5550', h[:issn]
@@ -130,9 +130,9 @@ module SimpleDOI
           assert_equal '978-0-387-72803-X', xml.eisbn
         end
 
-        def test_book_to_hash
+        def test_book_to_h
           xml = UnixrefXMLParser.new File.read("#{fixture_path}/unixref-book-2.xml")
-          h = xml.to_hash
+          h = xml.to_h
           assert_equal 'Organizational Dynamics of Technology-Based Innovation: Diversifying the Research Agenda', h[:book_title]
           assert_equal '978-0-387-72803-2', h[:isbn]
           assert_equal '978-0-387-72803-X', h[:eisbn]

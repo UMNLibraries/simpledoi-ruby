@@ -62,9 +62,9 @@ module SimpleDOI
           assert_nil json.book_series_title
         end
 
-        def test_journal_to_hash
+        def test_journal_to_h
           json = CiteprocJSONParser.new File.read("#{fixture_path}/citeproc-journal-1.json")
-          h = json.to_hash
+          h = json.to_h
           assert_equal 'Rehabilitation Psychology', h[:journal_title]
           assert_equal '1939-1544', h[:issn]
           assert_equal '10.1037/0090-5550.52.1.74', h[:doi]
@@ -92,9 +92,9 @@ module SimpleDOI
           assert_equal '10.1007/978-0-387-72804-9', json.doi
         end
 
-        def test_book_to_hash
+        def test_book_to_h
           json = CiteprocJSONParser.new File.read("#{fixture_path}/citeproc-book-2.json")
-          h = json.to_hash
+          h = json.to_h
           assert_equal 'The Triple Helix, Open Innovation, and the DOI Research Agenda', h[:book_title]
           assert_equal '978-0-387-72803-2', h[:isbn]
           assert_equal '10.1007/978-0-387-72804-9_32', h[:doi]

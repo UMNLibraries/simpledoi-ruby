@@ -42,13 +42,14 @@ module SimpleDOI
       end
 
       # Return all properties as a Hash
-      def to_hash
+      def to_h
         hash = {}
         PROPERTIES.each { |property| hash[property] = send property }
         # Array of Struct needs additional handling
         hash[:authors] = authors.map(&:to_h)
         hash
       end
+      alias :to_hash :to_h
     end
   end
 end
