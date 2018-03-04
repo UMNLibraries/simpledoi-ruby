@@ -23,10 +23,17 @@ module SimpleDOI
 
         def test_type
           xml = UnixrefXMLParser.new File.read("#{fixture_path}/unixref-journal-1.xml")
-          assert xml.journal?
+          assert xml.journal_article?
 
           xml = UnixrefXMLParser.new File.read("#{fixture_path}/unixref-journal-2.xml")
+          assert xml.journal_article?
+          refute xml.book?
+          refute xml.book_series?
+          refute xml.conference_proceeding?
+
+          xml = UnixrefXMLParser.new File.read("#{fixture_path}/unixref-journal-root-1.xml")
           assert xml.journal?
+          refute xml.journal_article?
           refute xml.book?
           refute xml.book_series?
           refute xml.conference_proceeding?
@@ -34,25 +41,25 @@ module SimpleDOI
           xml = UnixrefXMLParser.new File.read("#{fixture_path}/unixref-book-2.xml")
           assert xml.book?
           refute xml.book_series?
-          refute xml.journal?
+          refute xml.journal_article?
           refute xml.conference_proceeding?
 
           xml = UnixrefXMLParser.new File.read("#{fixture_path}/unixref-bookseries-1.xml")
           assert xml.book_series?
           refute xml.book?
-          refute xml.journal?
+          refute xml.journal_article?
           refute xml.conference_proceeding?
 
           xml = UnixrefXMLParser.new File.read("#{fixture_path}/unixref-conference-1.xml")
           assert xml.conference_proceeding?
           refute xml.book?
-          refute xml.journal?
+          refute xml.journal_article?
           refute xml.book_series?
 
           xml = UnixrefXMLParser.new File.read("#{fixture_path}/unixref-conference-2.xml")
           assert xml.conference_proceeding?
           refute xml.book?
-          refute xml.journal?
+          refute xml.journal_article?
           refute xml.book_series?
         end
 

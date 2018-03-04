@@ -29,8 +29,12 @@ module SimpleDOI
         !@xml.search("/#{XPATH_ROOT}/conference/proceedings_metadata").empty?
       end
 
+      def journal_article?
+        !@xml.search("/#{XPATH_ROOT}/journal/journal_article").empty?
+      end
+
       def journal?
-        !@xml.search("/#{XPATH_ROOT}/journal").empty?
+        !@xml.search("/#{XPATH_ROOT}/journal").empty? && !journal_article?
       end
 
       def book_title
@@ -108,8 +112,10 @@ module SimpleDOI
 
       def doi_path
         xpath = XPATH_ROOT
-        if journal?
+        if journal_article?
           xpath + '/journal/journal_article/doi_data'
+        elsif journal?
+          xpath + '/journal/journal_metadata/doi_data'
         elsif book?
           xpath + '/book/book_metadata/doi_data'
         elsif book_series?
@@ -121,7 +127,7 @@ module SimpleDOI
 
       def authors_path
         xpath = XPATH_ROOT
-        if journal?
+        if journal_article?
           xpath + '/journal/journal_article/contributors/person_name'
         elsif book?
           xpath + '/book/book_metadata/contributors/person_name'

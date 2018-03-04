@@ -33,6 +33,10 @@ module SimpleDOI
         raise NotImplementedError
       end
 
+      def journal_article?
+        raise NotImplementedError
+      end
+
       def book?
         raise NotImplementedError
       end

@@ -11,8 +11,12 @@ module SimpleDOI
         @json = JSON.parse(@str)
       end
 
+      def journal_article?
+        !!(@json['type'] =~ /journal/i && @json['type'] =~ /article/i)
+      end
+
       def journal?
-        !!(@json['type'] =~ /journal/i)
+        @json['type'].to_s.downcase == 'journal'
       end
 
       def book?
@@ -28,27 +32,39 @@ module SimpleDOI
       end
 
       def journal_title
-        @json['container-title'] if journal?
+        if journal_article?
+          @json['container-title']&.strip
+        elsif journal?
+          @json['title']&.strip
+        else
+          nil
+        end
       end
 
       def journal_isoabbrev_title
-        nil
+        if journal_article?
+          @json['container-title-short']&.strip
+        elsif journal?
+          @json['short-title']&.first
+        else
+          nil
+        end
       end
 
       def book_title
         if book? || book_series?
-          @json['title']
+          @json['title']&.strip
         elsif conference_proceeding?
-          @json['container-title']
+          @json['container-title']&.strip
         end
       end
 
       def book_series_title
-        @json['container-title'] if book_series? || conference_proceeding?
+        @json['container-title']&.strip if book_series? || conference_proceeding?
       end
 
       def article_title
-        @json['title'].strip if journal? || conference_proceeding?
+        @json['title']&.strip if journal_article? || conference_proceeding?
       end
 
       def authors
@@ -64,7 +80,7 @@ module SimpleDOI
 
       # Cannot distinguish between ISSN,eISSN so just take the first one
       def issn
-        @json['ISSN'].first rescue nil
+        @json['ISSN'].first.strip rescue nil
       end
 
       # Citeproc produces a list of unlabled ISSNs so we provide a method to get them all

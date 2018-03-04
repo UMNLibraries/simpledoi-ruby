@@ -23,22 +23,27 @@ module SimpleDOI
 
         def test_type
           json = CiteprocJSONParser.new File.read("#{fixture_path}/citeproc-journal-1.json")
-          assert json.journal?, 'The input JSON should represent a journal type'
+          assert json.journal_article?, 'The input JSON should represent a journal type'
 
           json = CiteprocJSONParser.new File.read("#{fixture_path}/citeproc-journal-2.json")
-          assert json.journal?, 'The input JSON should represent a journal type'
+          assert json.journal_article?, 'The input JSON should represent a journal type'
           refute json.book?, 'The input JSON should not represent a book type'
           refute json.book_series?, 'The input JSON should not represent a book series type'
 
           json = CiteprocJSONParser.new File.read("#{fixture_path}/citeproc-book-2.json")
           assert json.book?, 'The input JSON should represent a book type'
           refute json.book_series?, 'The input JSON should not represent a book series type'
-          refute json.journal?, 'The input JSON should not represent a journal type'
+          refute json.journal_article?, 'The input JSON should not represent a journal type'
 
           json = CiteprocJSONParser.new File.read("#{fixture_path}/citeproc-bookseries-1.json")
           assert json.book_series?, 'The input JSON should represent a book series type'
           refute json.book?, 'The input JSON should not represent a book type'
-          refute json.journal?, 'The input JSON should not represent a journal type'
+          refute json.journal_article?, 'The input JSON should not represent a journal type'
+
+          json = CiteprocJSONParser.new File.read("#{fixture_path}/citeproc-journal-root-1.json")
+          assert json.journal?
+          refute json.journal_article?
+          refute json.book_series?
         end
 
         def test_journal
@@ -62,6 +67,14 @@ module SimpleDOI
           assert_nil json.book_series_title
         end
 
+        def test_journal_root
+          json = CiteprocJSONParser.new File.read("#{fixture_path}/citeproc-journal-root-1.json")
+          assert_equal "European Journal of Inorganic Chemistry", json.journal_title
+          assert_equal "Eur. J. Inorg. Chem.", json.journal_isoabbrev_title
+          assert_nil json.article_title
+          assert_equal "1434-1948", json.issn
+        end
+
         def test_journal_to_hash
           json = CiteprocJSONParser.new File.read("#{fixture_path}/citeproc-journal-1.json")
           h = json.to_hash
@@ -81,6 +94,10 @@ module SimpleDOI
           assert_nil json.issn
           assert_nil json.eissn
           assert_equal '10.1007/978-0-387-72804-9_32', json.doi
+          assert_equal Date.new(2007, 1, 1), json.publication_date, 'A publication date having only a year defaults to January 1'
+          assert_equal 'Springer Science + Business Media', json.publisher
+          assert_nil json.volume
+          assert_nil json.issue
 
           json = CiteprocJSONParser.new File.read("#{fixture_path}/citeproc-book-3.json")
           assert_equal 'Organizational Dynamics of Technology-Based Innovation: Diversifying the Research Agenda', json.book_title
