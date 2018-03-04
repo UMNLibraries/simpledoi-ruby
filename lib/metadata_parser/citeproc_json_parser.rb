@@ -12,19 +12,19 @@ module SimpleDOI
       end
 
       def journal?
-        @json['type'] =~ /journal/i
+        !!(@json['type'] =~ /journal/i)
       end
 
       def book?
-        @json['type'] =~ /book/i && @json['container-title'].to_s.empty?
+        !!(@json['type'] =~ /book/i) && @json['container-title'].to_s.empty?
       end
 
       def book_series?
-        @json['type'] =~ /book/i && !@json['container-title'].to_s.empty?
+        !!(@json['type'] =~ /book/i) && !@json['container-title'].to_s.empty?
       end
 
       def conference_proceeding?
-        @json['type'] =~ /proceedings/
+        !!(@json['type'] =~ /proceedings/)
       end
 
       def journal_title
