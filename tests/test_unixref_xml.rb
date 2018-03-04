@@ -73,6 +73,10 @@ module SimpleDOI
           assert_equal '1470-1286', xml.eissn
           assert_equal '10.1080/10476210903420072', xml.doi
           assert_equal 'http://www.tandfonline.com/doi/abs/10.1080/10476210903420072', xml.url
+          assert_equal 'Christina', xml.authors.first.given_name
+          assert_equal 'Chávez‐Reyes', xml.authors.first.surname
+          assert_equal 1, xml.authors.first.sequence
+          assert_equal 'author', xml.authors.first.contributor_role
           assert_nil xml.isbn
           assert_nil xml.book_title
           assert_nil xml.book_series_title
@@ -134,6 +138,8 @@ module SimpleDOI
           assert_equal '978-0-387-72803-X', h[:eisbn]
           assert_equal '10.1007/978-0-387-72804-9', h[:doi]
           assert_equal 'http://www.springerlink.com/index/10.1007/978-0-387-72804-9', h[:url]
+          assert_equal 4, h[:authors].count
+          assert_equal 'Ferneley', h[:authors][2][:surname]
 
           assert_nil h[:issn]
           assert_nil h[:eissn]
@@ -150,6 +156,10 @@ module SimpleDOI
           assert_equal '1947-5918', xml.eissn
           assert_equal '10.1021/bk-2008-0997', xml.doi
           assert_equal 'http://pubs.acs.org/doi/book/10.1021/bk-2008-0997', xml.url
+          assert_equal 4, xml.authors.count
+          assert_equal 'Petrovic', xml.authors.last.surname
+          assert_equal 4, xml.authors.last.sequence
+          assert_equal 'editor', xml.authors.last.contributor_role
         end
 
         def test_conference_proceeding
