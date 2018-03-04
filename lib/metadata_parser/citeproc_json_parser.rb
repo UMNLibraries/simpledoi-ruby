@@ -1,4 +1,5 @@
 require 'json'
+require 'date'
 require_relative '../metadata_parser'
 
 module SimpleDOI
@@ -100,6 +101,38 @@ module SimpleDOI
 
       def doi
         @json['DOI']
+      end
+
+      def publisher
+        @json['publisher']&.strip
+      end
+
+      def volume
+        @json['volume']&.strip
+      end
+
+      def issue
+        @json['issue']&.strip
+      end
+
+      def publication_date
+        arr_to_date(@json['issued']['date-parts'].first) rescue nil
+      end
+
+      def publication_date_hash
+        arr_to_date_hash(@json['issued']['date-parts'].first) rescue nil
+      end
+
+      # Returns a Date object based on source array [year, month, day]
+      # substituting 1 for absent month, day
+      def arr_to_date(date_source)
+        Date.new(date_source[0], date_source[1] || 1, date_source[2] || 1)
+      end
+
+      # Returns a Hash indexed :year, :month, :day based on a source array [year, month, day]
+      # maintining nil for missing date parts
+      def arr_to_date_hash(date_source)
+        Hash[[:year, :month, :day].zip(date_source)]
       end
     end
   end

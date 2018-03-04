@@ -15,7 +15,11 @@ module SimpleDOI
         :conference_title,
         :authors,
         :doi,
-        :url
+        :url,
+        :publisher,
+        :volume,
+        :issue,
+        :publication_date
       ].freeze
 
       Author = Struct.new(:given_name, :surname, :contributor_role, :sequence)
