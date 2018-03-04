@@ -46,12 +46,17 @@ module SimpleDOI
           assert_equal 'Rehabilitation Psychology', json.journal_title
           assert_equal '1939-1544', json.issn
           assert_equal '10.1037/0090-5550.52.1.74', json.doi
+          assert_equal 'Tripp', json.authors.first.surname
+          assert_equal 'Ebel-Lam', json.authors[2].surname
+          assert_equal 3, json.authors[2].sequence
 
           json = CiteprocJSONParser.new File.read("#{fixture_path}/citeproc-journal-2.json")
           assert_equal 'Teaching Education', json.journal_title
           assert_equal 'Critical liberal education : an undergraduate pedagogy for teacher candidates in socially diverse university settings', json.article_title
           assert_equal '1047-6210', json.issn
           assert_equal '10.1080/10476210903420072', json.doi
+          assert_equal 1, json.authors.count
+          assert_equal 'Christina', json.authors.first.given_name
           assert_nil json.isbn
           assert_nil json.book_title
           assert_nil json.book_series_title

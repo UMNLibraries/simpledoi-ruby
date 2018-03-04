@@ -85,6 +85,17 @@ module SimpleDOI
         end
       end
 
+      def authors
+        @authors ||= (@xml.search(authors_path).map.with_index(1) do |contributor, idx|
+          Author.new(
+            (contributor.search('./given_name').first.text.strip rescue nil),
+            (contributor.search('./surname').first.text.strip rescue nil),
+            (contributor.attr('contributor_role').strip rescue nil),
+            idx
+          )
+        end)
+      end
+
       def doi
         @doi ||= (@xml.search("#{doi_path}/doi").first.text.strip rescue nil) || (@xml.search("#{XPATH_ROOT}//doi_data/doi").first.text.strip rescue nil)
       end
@@ -105,6 +116,19 @@ module SimpleDOI
           xpath + '/book/book_series_metadata/doi_data'
         else
           xpath + '//doi_data'
+        end
+      end
+
+      def authors_path
+        xpath = XPATH_ROOT
+        if journal?
+          xpath + '/journal/journal_article/contributors/person_name'
+        elsif book?
+          xpath + '/book/book_metadata/contributors/person_name'
+        elsif book_series?
+          xpath + '/book/book_series_metadata/contributors/person_name'
+        else
+          xpath + '//contributors'
         end
       end
     end

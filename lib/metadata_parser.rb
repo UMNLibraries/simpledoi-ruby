@@ -13,9 +13,12 @@ module SimpleDOI
         :eissn,
         :article_title,
         :conference_title,
+        :authors,
         :doi,
         :url
       ].freeze
+
+      Author = Struct.new(:given_name, :surname, :contributor_role, :sequence)
 
       # Default readers for all PROPERTIES
       attr_reader :str, *PROPERTIES
@@ -42,6 +45,8 @@ module SimpleDOI
       def to_hash
         hash = {}
         PROPERTIES.each { |property| hash[property] = send property }
+        # Array of Struct needs additional handling
+        hash[:authors] = authors.map(&:to_h)
         hash
       end
     end

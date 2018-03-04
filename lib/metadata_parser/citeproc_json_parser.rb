@@ -4,6 +4,7 @@ require_relative '../metadata_parser'
 module SimpleDOI
   module MetadataParser
     class CiteprocJSONParser < Parser
+      # Format docs: https://citeproc-js.readthedocs.io/en/latest/csl-json/markup.html
       def initialize(str)
         super
         # JSON will throw an exception here if invalid
@@ -50,9 +51,25 @@ module SimpleDOI
         @json['title'].strip if journal? || conference_proceeding?
       end
 
+      def authors
+        @authors ||= (@json['author'].map.with_index(1) do |contributor, idx|
+          Author.new(
+            (contributor['given'].strip rescue nil),
+            (contributor['family'].strip rescue nil),
+            'n/a',
+            idx
+          )
+        end)
+      end
+
       # Cannot distinguish between ISSN,eISSN so just take the first one
       def issn
         @json['ISSN'].first rescue nil
+      end
+
+      # Citeproc produces a list of unlabled ISSNs so we provide a method to get them all
+      def issns
+        @json['ISSN'] rescue []
       end
 
       def eissn
