@@ -19,6 +19,7 @@ module SimpleDOI
         :publisher,
         :volume,
         :issue,
+        :pagination,
         :publication_date
       ].freeze
 

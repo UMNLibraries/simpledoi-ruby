@@ -115,6 +115,10 @@ module SimpleDOI
         @json['issue']&.strip
       end
 
+      def pagination
+        @json['page']&.strip
+      end
+
       def publication_date
         arr_to_date(@json['issued']['date-parts'].first) rescue nil
       end
