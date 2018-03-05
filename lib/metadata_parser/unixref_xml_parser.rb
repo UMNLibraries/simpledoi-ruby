@@ -108,6 +108,35 @@ module SimpleDOI
         @url ||= (@xml.search("#{doi_path}/resource").first.text.strip rescue nil) || (@xml.search("#{XPATH_ROOT}//doi_data/resource").first.text.strip rescue nil)
       end
 
+      # needs implementation
+      def publisher
+        nil
+      end
+
+      def volume
+        @volume ||= (@xml.search("#{volume_path}").first.text.strip rescue nil)
+      end
+
+      def issue
+        @issue ||= (@xml.search("#{volume_issue_path}/issue").first.text.strip rescue nil)
+      end
+
+      def pagination
+        @pagination ||= (@xml.search("//pages/first_page").first.text.strip + '-' + @xml.search('//pages/last_page').first.text.strip rescue nil)
+      end
+
+      def publication_date
+        Date.new(publication_date_hash[:year], publication_date_hash[:month] || 1, publication_date_hash[:day] || 1) rescue nil
+      end
+
+      def publication_date_hash
+        @publication_date_hash ||= {
+          year: (@xml.search("#{publication_date_path}/year").first.text.strip.to_i rescue nil),
+          month: (@xml.search("#{publication_date_path}/month").first.text.strip.to_i rescue nil),
+          day: (@xml.search("#{publication_date_path}/day").first.text.strip.to_i rescue nil)
+        }
+      end
+
       protected
 
       def doi_path
@@ -133,9 +162,41 @@ module SimpleDOI
           xpath + '/book/book_metadata/contributors/person_name'
         elsif book_series?
           xpath + '/book/book_series_metadata/contributors/person_name'
+        elsif conference_proceeding?
+          xpath + '/conference/conference_paper/contributors/person_name'
         else
           xpath + '//contributors'
         end
+      end
+
+      def volume_issue_path
+        xpath = XPATH_ROOT
+        if journal_article?
+          xpath + '/journal/journal_issue'
+        elsif book?
+          xpath + '/book/book_metadata'
+        elsif book_series?
+          xpath + '/book/book_series_metadata'
+        elsif conference_proceeding?
+          xpath + '/conference/proceedings_metadata'
+        else
+          '//'
+        end
+      end
+
+      def volume_path
+        xpath = volume_issue_path
+        if journal_article?
+          xpath + '/journal_volume/volume'
+        elsif book? || book_series?
+          xpath + '/volume'
+        else
+          '//volume'
+        end
+      end
+
+      def publication_date_path
+        '//publication_date'
       end
     end
   end
