@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doi_records>
+  <doi_record owner="10.1002" timestamp="2010-07-27 05:03:34">
+    <crossref>
+      <journal>
+        <journal_metadata language="en">
+          <full_title>European Journal of Inorganic Chemistry</full_title>
+          <abbrev_title>Eur. J. Inorg. Chem.</abbrev_title>
+          <issn>14341948</issn>
+          <doi_data>
+            <doi>10.1002/(ISSN)1099-0682c</doi>
+            <resource>http://doi.wiley.com/10.1002/%28ISSN%291099-0682c</resource>
+          </doi_data>
+        </journal_metadata>
+      </journal>
+    </crossref>
+  </doi_record>
+</doi_records>

@@ -23,10 +23,17 @@ module SimpleDOI
 
         def test_type
           xml = UnixrefXMLParser.new File.read("#{fixture_path}/unixref-journal-1.xml")
-          assert xml.journal?
+          assert xml.journal_article?
 
           xml = UnixrefXMLParser.new File.read("#{fixture_path}/unixref-journal-2.xml")
+          assert xml.journal_article?
+          refute xml.book?
+          refute xml.book_series?
+          refute xml.conference_proceeding?
+
+          xml = UnixrefXMLParser.new File.read("#{fixture_path}/unixref-journal-root-1.xml")
           assert xml.journal?
+          refute xml.journal_article?
           refute xml.book?
           refute xml.book_series?
           refute xml.conference_proceeding?
@@ -34,25 +41,25 @@ module SimpleDOI
           xml = UnixrefXMLParser.new File.read("#{fixture_path}/unixref-book-2.xml")
           assert xml.book?
           refute xml.book_series?
-          refute xml.journal?
+          refute xml.journal_article?
           refute xml.conference_proceeding?
 
           xml = UnixrefXMLParser.new File.read("#{fixture_path}/unixref-bookseries-1.xml")
           assert xml.book_series?
           refute xml.book?
-          refute xml.journal?
+          refute xml.journal_article?
           refute xml.conference_proceeding?
 
           xml = UnixrefXMLParser.new File.read("#{fixture_path}/unixref-conference-1.xml")
           assert xml.conference_proceeding?
           refute xml.book?
-          refute xml.journal?
+          refute xml.journal_article?
           refute xml.book_series?
 
           xml = UnixrefXMLParser.new File.read("#{fixture_path}/unixref-conference-2.xml")
           assert xml.conference_proceeding?
           refute xml.book?
-          refute xml.journal?
+          refute xml.journal_article?
           refute xml.book_series?
         end
 
@@ -112,6 +119,10 @@ module SimpleDOI
           assert_nil xml.eissn
           assert_equal '10.1007/978-0-387-72804-9', xml.doi
           assert_equal 'http://www.springerlink.com/index/10.1007/978-0-387-72804-9', xml.url
+          assert_equal '235', xml.volume
+          assert_equal '463-468', xml.pagination
+          assert_equal Date.new(2007, 1, 1), xml.publication_date
+          assert_equal Hash[year: 2007, month: nil, day: nil], xml.publication_date_hash
 
           xml = UnixrefXMLParser.new File.read("#{fixture_path}/unixref-book-3.xml")
           assert_equal 'This Book Title', xml.book_title
@@ -122,6 +133,8 @@ module SimpleDOI
           assert_nil xml.eissn
           assert_equal '10.1007/978-0-387-72804-9', xml.doi
           assert_equal 'http://link.springer.com/10.1007/978-0-387-72804-9', xml.url
+          assert_equal '235', xml.volume
+          assert_equal Date.new(2007, 1, 1), xml.publication_date
         end
 
         def test_isbn_without_print_attribute
@@ -138,8 +151,10 @@ module SimpleDOI
           assert_equal '978-0-387-72803-X', h[:eisbn]
           assert_equal '10.1007/978-0-387-72804-9', h[:doi]
           assert_equal 'http://www.springerlink.com/index/10.1007/978-0-387-72804-9', h[:url]
-          assert_equal 4, h[:authors].count
-          assert_equal 'Ferneley', h[:authors][2][:surname]
+          assert_equal 4, h[:contributors].count
+          assert_equal 'Ferneley', h[:contributors][2][:surname]
+          assert_equal '463-468', h[:pagination]
+          assert_equal Date.new(2007, 1, 1), h[:publication_date]
 
           assert_nil h[:issn]
           assert_nil h[:eissn]
@@ -156,10 +171,14 @@ module SimpleDOI
           assert_equal '1947-5918', xml.eissn
           assert_equal '10.1021/bk-2008-0997', xml.doi
           assert_equal 'http://pubs.acs.org/doi/book/10.1021/bk-2008-0997', xml.url
-          assert_equal 4, xml.authors.count
-          assert_equal 'Petrovic', xml.authors.last.surname
-          assert_equal 4, xml.authors.last.sequence
-          assert_equal 'editor', xml.authors.last.contributor_role
+          assert_equal 1, xml.authors.count
+          assert_equal 'Art Vandelay', xml.authors[0].given_name + ' ' + xml.authors[0].surname
+          assert_equal 4, xml.editors.count
+          assert_equal 'Petrovic', xml.editors.last.surname
+          assert_equal 5, xml.contributors.last.sequence
+          assert_equal 'author', xml.contributors.last.contributor_role
+          assert_equal "997", xml.volume
+          assert_equal Date.new(2008, 9, 12), xml.publication_date
         end
 
         def test_conference_proceeding
@@ -171,6 +190,8 @@ module SimpleDOI
           assert_equal 'Evaluating thread level parallelism based on optimum cache architecture', xml.article_title
           assert_equal '10.1109/ISCAIE.2012.6482067', xml.doi
           assert_equal 'http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=6482067', xml.url
+          assert_equal "48-53", xml.pagination
+          assert_equal Date.new(2012, 12, 1), xml.publication_date
 
           xml = UnixrefXMLParser.new File.read("#{fixture_path}/unixref-conference-2.xml")
           assert_equal '2009 International Conference on Engineering Computation', xml.conference_title
@@ -178,8 +199,11 @@ module SimpleDOI
           assert_equal '978-0-7695-3655-2', xml.isbn
           assert_nil xml.eisbn
           assert_equal 'Exact Solutions for In-Plane Displacements of Curved Beams under Thermo Load', xml.article_title
+          assert_equal 'Zhao', xml.authors.last.surname
           assert_equal '10.1109/ICEC.2009.62', xml.doi
           assert_equal 'http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=5167124', xml.url
+          assert_equal '193-196', xml.pagination
+          assert_equal Date.new(2009, 5, 1), xml.publication_date
         end
       end
     end
