@@ -35,6 +35,10 @@
               <given_name>A. Martin</given_name>
               <surname>Petrovic</surname>
             </person_name>
+            <person_name sequence="additional" contributor_role="author">
+              <given_name>Art</given_name>
+              <surname>Vandelay</surname>
+            </person_name>
           </contributors>
           <titles>
             <title>The Fate of Nutrients and Pesticides in the Urban Environment</title>

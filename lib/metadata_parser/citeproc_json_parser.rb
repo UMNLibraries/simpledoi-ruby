@@ -69,14 +69,31 @@ module SimpleDOI
       end
 
       def authors
-        @authors ||= (@json['author'].map.with_index(1) do |contributor, idx|
-          Author.new(
-            (contributor['given'].strip rescue nil),
-            (contributor['family'].strip rescue nil),
-            'n/a',
-            idx
-          )
-        end)
+        contributors('author').select {|c| c.contributor_role == 'author'}
+      end
+
+      def editors
+        contributors('editor').select {|c| c.contributor_role == 'editor'}
+      end
+
+
+      def contributors(set_type=nil)
+        # Return the whole array if no type requested
+        @contributors ||= []
+        return @contributors if set_type.nil?
+
+        # Gather the requested contributor type if it has not been previously requested
+        if @contributors.select {|contributor| contributor.contributor_role == set_type}.empty?
+          @contributors += (@json[set_type].map.with_index(1) do |contributor, idx|
+            Contributor.new(
+              (contributor['given'].strip rescue nil),
+              (contributor['family'].strip rescue nil),
+              set_type,
+              idx
+            )
+          end)
+        end
+        @contributors
       end
 
       # Cannot distinguish between ISSN,eISSN so just take the first one

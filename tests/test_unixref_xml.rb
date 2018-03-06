@@ -151,8 +151,8 @@ module SimpleDOI
           assert_equal '978-0-387-72803-X', h[:eisbn]
           assert_equal '10.1007/978-0-387-72804-9', h[:doi]
           assert_equal 'http://www.springerlink.com/index/10.1007/978-0-387-72804-9', h[:url]
-          assert_equal 4, h[:authors].count
-          assert_equal 'Ferneley', h[:authors][2][:surname]
+          assert_equal 4, h[:contributors].count
+          assert_equal 'Ferneley', h[:contributors][2][:surname]
           assert_equal '463-468', h[:pagination]
           assert_equal Date.new(2007, 1, 1), h[:publication_date]
 
@@ -171,10 +171,12 @@ module SimpleDOI
           assert_equal '1947-5918', xml.eissn
           assert_equal '10.1021/bk-2008-0997', xml.doi
           assert_equal 'http://pubs.acs.org/doi/book/10.1021/bk-2008-0997', xml.url
-          assert_equal 4, xml.authors.count
-          assert_equal 'Petrovic', xml.authors.last.surname
-          assert_equal 4, xml.authors.last.sequence
-          assert_equal 'editor', xml.authors.last.contributor_role
+          assert_equal 1, xml.authors.count
+          assert_equal 'Art Vandelay', xml.authors[0].given_name + ' ' + xml.authors[0].surname
+          assert_equal 4, xml.editors.count
+          assert_equal 'Petrovic', xml.editors.last.surname
+          assert_equal 5, xml.contributors.last.sequence
+          assert_equal 'author', xml.contributors.last.contributor_role
           assert_equal "997", xml.volume
           assert_equal Date.new(2008, 9, 12), xml.publication_date
         end

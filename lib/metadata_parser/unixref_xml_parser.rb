@@ -89,9 +89,9 @@ module SimpleDOI
         end
       end
 
-      def authors
-        @authors ||= (@xml.search(authors_path).map.with_index(1) do |contributor, idx|
-          Author.new(
+      def contributors
+        @contributors ||= (@xml.search(contributors_path).map.with_index(1) do |contributor, idx|
+          Contributor.new(
             (contributor.search('./given_name').first.text.strip rescue nil),
             (contributor.search('./surname').first.text.strip rescue nil),
             (contributor.attr('contributor_role').strip rescue nil),
@@ -154,7 +154,7 @@ module SimpleDOI
         end
       end
 
-      def authors_path
+      def contributors_path
         xpath = XPATH_ROOT
         if journal_article?
           xpath + '/journal/journal_article/contributors/person_name'
