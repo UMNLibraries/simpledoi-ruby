@@ -13,12 +13,17 @@ module SimpleDOI
         :eissn,
         :article_title,
         :conference_title,
-        :authors,
+        :contributors,
         :doi,
-        :url
+        :url,
+        :publisher,
+        :volume,
+        :issue,
+        :pagination,
+        :publication_date
       ].freeze
 
-      Author = Struct.new(:given_name, :surname, :contributor_role, :sequence)
+      Contributor = Struct.new(:given_name, :surname, :contributor_role, :sequence)
 
       # Default readers for all PROPERTIES
       attr_reader :str, *PROPERTIES
@@ -33,6 +38,10 @@ module SimpleDOI
         raise NotImplementedError
       end
 
+      def journal_article?
+        raise NotImplementedError
+      end
+
       def book?
         raise NotImplementedError
       end
@@ -41,12 +50,24 @@ module SimpleDOI
         raise NotImplementedError
       end
 
+      def authors
+        contributors.select {|c| c.contributor_role == 'author'}
+      end
+
+      def editors
+        contributors.select {|c| c.contributor_role == 'editor'}
+      end
+
+      def contributors
+        @contributors ||= []
+      end
+
       # Return all properties as a Hash
       def to_hash
         hash = {}
         PROPERTIES.each { |property| hash[property] = send property }
         # Array of Struct needs additional handling
-        hash[:authors] = authors.map(&:to_h)
+        hash[:contributors] = @contributors.map(&:to_h)
         hash
       end
     end

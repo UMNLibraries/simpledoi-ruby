@@ -1,4 +1,5 @@
 require 'json'
+require 'date'
 require_relative '../metadata_parser'
 
 module SimpleDOI
@@ -11,8 +12,12 @@ module SimpleDOI
         @json = JSON.parse(@str)
       end
 
+      def journal_article?
+        !!(@json['type'] =~ /journal/i && @json['type'] =~ /article/i)
+      end
+
       def journal?
-        !!(@json['type'] =~ /journal/i)
+        @json['type'].to_s.downcase == 'journal'
       end
 
       def book?
@@ -28,43 +33,72 @@ module SimpleDOI
       end
 
       def journal_title
-        @json['container-title'] if journal?
+        if journal_article?
+          @json['container-title']&.strip
+        elsif journal?
+          @json['title']&.strip
+        else
+          nil
+        end
       end
 
       def journal_isoabbrev_title
-        nil
+        if journal_article?
+          @json['container-title-short']&.strip
+        elsif journal?
+          @json['short-title']&.first
+        else
+          nil
+        end
       end
 
       def book_title
         if book? || book_series?
-          @json['title']
+          @json['title']&.strip
         elsif conference_proceeding?
-          @json['container-title']
+          @json['container-title']&.strip
         end
       end
 
       def book_series_title
-        @json['container-title'] if book_series? || conference_proceeding?
+        @json['container-title']&.strip if book_series? || conference_proceeding?
       end
 
       def article_title
-        @json['title'].strip if journal? || conference_proceeding?
+        @json['title']&.strip if journal_article? || conference_proceeding?
       end
 
       def authors
-        @authors ||= (@json['author'].map.with_index(1) do |contributor, idx|
-          Author.new(
-            (contributor['given'].strip rescue nil),
-            (contributor['family'].strip rescue nil),
-            'n/a',
-            idx
-          )
-        end)
+        contributors('author').select {|c| c.contributor_role == 'author'}
+      end
+
+      def editors
+        contributors('editor').select {|c| c.contributor_role == 'editor'}
+      end
+
+
+      def contributors(set_type=nil)
+        # Return the whole array if no type requested
+        @contributors ||= []
+        return @contributors if set_type.nil?
+
+        # Gather the requested contributor type if it has not been previously requested
+        if @contributors.select {|contributor| contributor.contributor_role == set_type}.empty?
+          @contributors += (@json[set_type].map.with_index(1) do |contributor, idx|
+            Contributor.new(
+              (contributor['given'].strip rescue nil),
+              (contributor['family'].strip rescue nil),
+              set_type,
+              idx
+            )
+          end)
+        end
+        @contributors
       end
 
       # Cannot distinguish between ISSN,eISSN so just take the first one
       def issn
-        @json['ISSN'].first rescue nil
+        @json['ISSN'].first.strip rescue nil
       end
 
       # Citeproc produces a list of unlabled ISSNs so we provide a method to get them all
@@ -84,6 +118,42 @@ module SimpleDOI
 
       def doi
         @json['DOI']
+      end
+
+      def publisher
+        @json['publisher']&.strip
+      end
+
+      def volume
+        @json['volume']&.strip
+      end
+
+      def issue
+        @json['issue']&.strip
+      end
+
+      def pagination
+        @json['page']&.strip
+      end
+
+      def publication_date
+        arr_to_date(@json['issued']['date-parts'].first) rescue nil
+      end
+
+      def publication_date_hash
+        arr_to_date_hash(@json['issued']['date-parts'].first) rescue nil
+      end
+
+      # Returns a Date object based on source array [year, month, day]
+      # substituting 1 for absent month, day
+      def arr_to_date(date_source)
+        Date.new(date_source[0], date_source[1] || 1, date_source[2] || 1)
+      end
+
+      # Returns a Hash indexed :year, :month, :day based on a source array [year, month, day]
+      # maintining nil for missing date parts
+      def arr_to_date_hash(date_source)
+        Hash[[:year, :month, :day].zip(date_source)]
       end
     end
   end

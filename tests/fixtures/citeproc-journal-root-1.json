@@ -1,0 +1,71 @@
+{
+  "indexed": {
+    "date-parts": [
+      [
+        2017,
+        10,
+        26
+      ]
+    ],
+    "date-time": "2017-10-26T13:30:31Z",
+    "timestamp": 1509024631898
+  },
+  "reference-count": 0,
+  "publisher": "Wiley-Blackwell",
+  "content-domain": {
+    "domain": [],
+    "crossmark-restriction": false
+  },
+  "DOI": "10.1002/(issn)1099-0682c",
+  "type": "journal",
+  "created": {
+    "date-parts": [
+      [
+        2010,
+        7,
+        27
+      ]
+    ],
+    "date-time": "2010-07-27T09:03:34Z",
+    "timestamp": 1280221414000
+  },
+  "source": "Crossref",
+  "is-referenced-by-count": 0,
+  "title": "European Journal of Inorganic Chemistry",
+  "prefix": "10.1002",
+  "member": "311",
+  "container-title": [],
+  "original-title": [],
+  "deposited": {
+    "date-parts": [
+      [
+        2010,
+        7,
+        27
+      ]
+    ],
+    "date-time": "2010-07-27T09:03:34Z",
+    "timestamp": 1280221414000
+  },
+  "score": 1,
+  "subtitle": [],
+  "short-title": [
+    "Eur. J. Inorg. Chem."
+  ],
+  "issued": {
+    "date-parts": [
+      [
+        null
+      ]
+    ]
+  },
+  "references-count": 0,
+  "URL": "http://dx.doi.org/10.1002/(ISSN)1099-0682c",
+  "relation": {},
+  "ISSN": [
+    "1434-1948"
+  ],
+  "subject": [
+    "Inorganic Chemistry"
+  ]
+}
