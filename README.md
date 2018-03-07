@@ -21,6 +21,11 @@ puts doi.target_url
 
 ### Extract one or more DOIs from a larger string, such as a URL
 ```ruby
+# An HTTP backend must be loaded
+require 'curb'
+# alternatively
+# require 'net/http'
+
 require 'simple_doi'
 
 input = 'http://dx.doi.org/10.1000/182'
@@ -77,10 +82,10 @@ Valid format arguments for `lookup` are `SimpleDOI::UNIXREF_XML,
 SimpleDOI::CITEPROC_JSON`
 
 ### Parse returned metadata
-The metadata format parsers included with this library are not comprehensive.  
-They present a common, simple interface to retrieve certain metadata components 
-we have needed in the past, but if you have more complex requirements you can 
-always pass the response body to a general purpose interface like `JSON` or 
+The metadata format parsers included with this library are not comprehensive.
+They present a common, simple interface to retrieve certain metadata components
+we have needed in the past, but if you have more complex requirements you can
+always pass the response body to a general purpose interface like `JSON` or
 `Nokogiri`.
 
 `SimpleDOI::MetadataParser::CiteprocJSONParser` and
@@ -100,8 +105,12 @@ parser = SimpleDOI::MetadataParser::UnixrefXMLParser.new(doi.body)
 parser.book?
 # false
 
-# Is it a journal/serial?
+# Is it a general journal/serial (not article)?
 parser.journal?
+# false
+
+# Is it a journal/serial article
+parser.journal_article?
 # true
 
 # Is it a conference proceeding?
@@ -120,6 +129,22 @@ parser.journal_title
 parser.article_title
 # "Passenger Choice Analysis for Seat Capacity Control...."
 
+# Get some publication information
+"Vol: #{parser.volume} Issue: #{parser.issue} Pages: #{parser.pagination} Published: #{parser.publication_date}"
+# "Vol: 5 Issue: 6 Pages: 471-486"
+# "Published: 1998-11-01"
+
+# Get the authors/editors/contributors
+parser.contributors
+# "[#<struct SimpleDOI::MetadataParser::Parser::Contributor given_name=\"S-E.\", surname=\"Andersson\", contributor_role=\"author\", sequence=1>]"
+
+# If multiple contributor_role values, shorthand as:
+parser.authors
+parser.editors
+
+# Bundle up the whole thing as a Hash
+parser.to_h
+# {:book_title=>nil, :book_series_title=>nil, :isbn=>nil, :eisbn=>nil, :journal_title=>"International Transactions in Operational Research", :journal_isoabbrev_title=>"Int Trans Operational Res", :issn=>"0969-6016", :eissn=>"1475-3995", :article_title=>"Passenger Choice Analysis for Seat Capacity Control: A Pilot Project in Scandinavian Airlines", :conference_title=>nil, :contributors=>[{:given_name=>"S-E.", :surname=>"Andersson", :contributor_role=>"author", :sequence=>1}], :doi=>"10.1111/j.1475-3995.1998.tb00130.x", :url=>"http://doi.wiley.com/10.1111/j.1475-3995.1998.tb00130.x", :publisher=>nil, :volume=>"5", :issue=>"6", :pagination=>"471-486", :publication_date=>#<Date: 1998-11-01 ((2451119j,0s,0n),+0s,2299161j)>}
 ```
 
 All currently implemented methods are listed in
