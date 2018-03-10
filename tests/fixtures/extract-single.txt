@@ -21,3 +21,4 @@
 10.1234/abcdefg/1234 This http://dx.doi.org/10.1234/abcdefg/1234/ has a trailing slash
 10.1234/abcdefg/1234 This http://dx.doi.org/10.1234/abcdefg/1234/full has /full
 10.1234/abcdefg/1234 This http://dx.doi.org/10.1234/abcdefg/1234/cite/refworks has /cite/refworks
+10.1234/abcdefg/1234 This http://dx.doi.org/10.1234%2Fabcdefg%2F1234 s is urlencoded

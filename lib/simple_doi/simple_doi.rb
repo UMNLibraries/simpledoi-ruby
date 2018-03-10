@@ -29,6 +29,7 @@ module SimpleDOI
   # Attempt to extract all DOIs from string
   # Returns an array of SimpleDOI::DOI objects
   def extract(string)
+    string = CGI.unescape string
     list = (string.scan(Regexp.new(DOI_PATTERN))).flatten
     # Calls strip() to make sure nothing like ?nosfx=y remains
     list.map! { |doi| strip doi }
