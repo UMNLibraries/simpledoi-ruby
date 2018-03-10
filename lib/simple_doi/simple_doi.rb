@@ -45,7 +45,7 @@ module SimpleDOI
     string.sub!(/^doi:/i, '')
 
     # Strip off doi.org URL prefix and ?nosfx
-    string.sub!(Regexp.new('^' + DOI::LOOKUP_URL_ROOT), '')
+    string.sub!(Regexp.new('^https?://' + DOI::LOOKUP_URL_DOMAIN + '/'), '')
 
     # Strip query string
     # Have to make sure it actually looks like a query string with key=value
@@ -67,7 +67,7 @@ module SimpleDOI
   class DOI
     include SimpleDOI
 
-    LOOKUP_URL_ROOT = 'http://dx.doi.org/'
+    LOOKUP_URL_DOMAIN = 'dx.doi.org'
 
     BACKENDS = %w(curb net/http)
 
@@ -77,13 +77,8 @@ module SimpleDOI
 
     def initialize(doi)
       # Prefer curb if available, otherise Net::HTTP
-      if defined?(Curl)
-        @backend = 'curb'
-      elsif defined?(Net::HTTP)
-        @backend = 'net/http'
-      else
-        raise NoBackendError
-      end
+      @backend = 'curb' if defined?(Curl)
+      @backend ||= 'net/http' if defined?(Net::HTTP)
 
       raise ArgumentError, "Supplied string does not appear to be a valid DOI: #{doi}" unless valid?(doi)
       @doi = doi
@@ -128,6 +123,8 @@ module SimpleDOI
     # Params:
     # * +accept+:: +String|Array+ Requested Accept: content types may be single string or array
     def lookup(accept = CITEPROC_JSON)
+      raise NoBackendError unless @backend
+
       # Coerce accept to a 1D array
       accept = [accept].flatten
       @body = nil
@@ -179,6 +176,10 @@ module SimpleDOI
       JSON.parse(resp) unless resp.nil?
     end
 
+    def self.lookup_url_root
+      "http://#{LOOKUP_URL_DOMAIN}/"
+    end
+
     # Get the redirection target URL or return it if already retrieved
     def target_url
       return @target_url unless @target_url.nil?
@@ -203,7 +204,7 @@ module SimpleDOI
     end
 
     def url
-      LOOKUP_URL_ROOT + CGI.escape(to_s)
+      "#{self.class.lookup_url_root}#{CGI.escape(to_s)}"
     end
 
     protected
