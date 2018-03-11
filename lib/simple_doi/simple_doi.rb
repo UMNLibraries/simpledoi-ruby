@@ -177,7 +177,7 @@ module SimpleDOI
     end
 
     def self.lookup_url_root
-      "http://#{LOOKUP_URL_DOMAIN}/"
+      "https://#{LOOKUP_URL_DOMAIN}/"
     end
 
     # Get the redirection target URL or return it if already retrieved
@@ -195,7 +195,9 @@ module SimpleDOI
         location = client.header_str.scan(/location:\s+(\S+)/i).flatten.first if REDIR_CODES.include? client.response_code.to_i
       when 'net/http'
         uri = URI.parse url
-        client = Net::HTTP.new uri.host
+        request_use_ssl = uri.scheme == 'https'
+        client = Net::HTTP.new uri.host, (request_use_ssl ? Net::HTTP.https_default_port : Net::HTTP.http_default_port)
+        client.use_ssl = request_use_ssl
         request = Net::HTTP::Get.new uri.request_uri
         response = client.request request
         location = response['location'] if REDIR_CODES.map(&:to_s).include? response.code
@@ -210,7 +212,10 @@ module SimpleDOI
     protected
 
     def net_http_response_redirect(uri, type)
-      client = Net::HTTP.new uri.host
+      # Net::HTTP require different initial setup for https vs http
+      request_use_ssl = uri.scheme == 'https'
+      client = Net::HTTP.new uri.host, (request_use_ssl ? Net::HTTP.https_default_port : Net::HTTP.http_default_port)
+      client.use_ssl = request_use_ssl
       request = Net::HTTP::Get.new uri.request_uri
       request['Accept'] = type
       response = client.request request
