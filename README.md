@@ -1,5 +1,6 @@
-# SimpleDOI
+# SimpleDOI [![Build Status](https://travis-ci.org/UMNLibraries/simpledoi-ruby.svg?branch=master)](https://travis-ci.org/UMNLibraries/simpledoi-ruby)
 A library for locating DOIs and retrieving metadata about their targets
+
 
 ## Basic Usage
 ### Retrieve the target resource URL from a known DOI
