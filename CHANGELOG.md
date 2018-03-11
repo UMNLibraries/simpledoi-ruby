@@ -1,4 +1,7 @@
 # CHANGELOG
+1.1.0:
+* Support for URL encoded DOI strings with `SimpleDOI#extract`
+* Changes dx.doi.org base redirector to use https://
 
 1.0.0:
  * `SimpleDOI::MetadataParser#journal?` behavior has changed and
