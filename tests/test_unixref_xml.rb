@@ -121,6 +121,7 @@ module SimpleDOI
           assert_equal 'http://www.springerlink.com/index/10.1007/978-0-387-72804-9', xml.url
           assert_equal '235', xml.volume
           assert_equal '463-468', xml.pagination
+          assert_equal 'Springer US; Boston, MA', xml.publisher
           assert_equal Date.new(2007, 1, 1), xml.publication_date
           assert_equal Hash[year: 2007, month: nil, day: nil], xml.publication_date_hash
 
@@ -134,6 +135,7 @@ module SimpleDOI
           assert_equal '10.1007/978-0-387-72804-9', xml.doi
           assert_equal 'http://link.springer.com/10.1007/978-0-387-72804-9', xml.url
           assert_equal '235', xml.volume
+          assert_equal 'Springer US', xml.publisher
           assert_equal Date.new(2007, 1, 1), xml.publication_date
         end
 
@@ -203,6 +205,7 @@ module SimpleDOI
           assert_equal '10.1109/ICEC.2009.62', xml.doi
           assert_equal 'http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=5167124', xml.url
           assert_equal '193-196', xml.pagination
+          assert_equal 'IEEE', xml.publisher
           assert_equal Date.new(2009, 5, 1), xml.publication_date
         end
       end

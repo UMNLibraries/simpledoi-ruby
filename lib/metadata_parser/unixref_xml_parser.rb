@@ -110,7 +110,17 @@ module SimpleDOI
 
       # needs implementation
       def publisher
-        nil
+        # Return publisher name concatenated with place if available
+        # If would throw a method error for :+ on publisher_name if nil, to dump nil for the whole thing
+        publisher_name + (publisher_place ? "; #{publisher_place}" : "") rescue nil
+      end
+
+      def publisher_name
+        @publisher_name ||= @xml.search("//publisher/publisher_name").first.text.strip rescue nil
+      end
+
+      def publisher_place
+        @publisher_place ||= @xml.search("//publisher/publisher_place").first.text.strip rescue nil
       end
 
       def volume
