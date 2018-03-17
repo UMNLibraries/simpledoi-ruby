@@ -5,6 +5,7 @@ module SimpleDOI
       PROPERTIES = [
         :book_title,
         :book_series_title,
+        :chapter_title,
         :isbn,
         :eisbn,
         :journal_title,

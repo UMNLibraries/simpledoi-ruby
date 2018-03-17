@@ -28,6 +28,10 @@ module SimpleDOI
         !!(@json['type'] =~ /book/i) && !@json['container-title'].to_s.empty?
       end
 
+      def book_chapter?
+        !!(@json['type'] =~ /chapter/)
+      end
+
       def conference_proceeding?
         !!(@json['type'] =~ /proceedings/)
       end
@@ -55,7 +59,7 @@ module SimpleDOI
       def book_title
         if book? || book_series?
           @json['title']&.strip
-        elsif conference_proceeding?
+        elsif book_chapter? || conference_proceeding?
           @json['container-title']&.strip
         end
       end
@@ -66,6 +70,10 @@ module SimpleDOI
 
       def article_title
         @json['title']&.strip if journal_article? || conference_proceeding?
+      end
+
+      def chapter_title
+        @json['title']&.strip if book_chapter?
       end
 
       def authors
@@ -111,9 +119,17 @@ module SimpleDOI
       end
 
       def isbn
-        # ISBN is returned as an array like "ISBN"=>["http://id.crossref.org/isbn/978-1-59059-847-4"]
         # We only really need one and will only use one.
-        @json['ISBN'].first.scan(/isbn\/(.+)/).flatten.pop rescue nil
+        isbns&.first
+      end
+
+      def isbns
+        # ISBN is usually returned as an array like "ISBN"=>["http://id.crossref.org/isbn/978-1-59059-847-4"]
+        if @json['ISBN']&.first =~ /^http/
+          @json['ISBN'].first.scan(/isbn\/(.+)/).flatten rescue []
+        else
+          @json['ISBN'] || []
+        end
       end
 
       def doi

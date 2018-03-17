@@ -151,6 +151,27 @@ module SimpleDOI
           assert_equal "American Chemical Society", json.publisher
         end
 
+        def test_book_chapter
+          json = CiteprocJSONParser.new File.read("#{fixture_path}/citeproc-book-chapter-1.json")
+          assert_equal 'Theory and Research on Small Groups', json.book_title
+          assert_equal 'Cooperative Learning and Social Interdependence Theory', json.chapter_title
+          assert_equal '0306456796', json.isbn
+          assert_equal 'David W.', json.authors.first.given_name
+          assert_equal 'Kluwer Academic Publishers; Boston', json.publisher
+
+          json = CiteprocJSONParser.new File.read("#{fixture_path}/citeproc-book-chapter-2.json")
+          assert_equal 'Perspiration Research', json.book_title
+          assert_equal 'Sweat as an Efficient Natural Moisturizer', json.chapter_title
+          assert_equal ["9783318059045", "9783318059052"], json.isbns
+        end
+
+        def test_book_chapter_to_h
+          json = CiteprocJSONParser.new File.read("#{fixture_path}/citeproc-book-chapter-1.json")
+          h = json.to_h
+          assert_equal 'Theory and Research on Small Groups', h[:book_title]
+          assert_equal 'Cooperative Learning and Social Interdependence Theory', h[:chapter_title]
+        end
+
         def test_conference_proceeding
           json = CiteprocJSONParser.new File.read("#{fixture_path}/citeproc-conference-2.json")
           assert_equal 'Exact Solutions for In-Plane Displacements of Curved Beams under Thermo Load', json.article_title
