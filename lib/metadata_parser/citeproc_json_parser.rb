@@ -120,8 +120,12 @@ module SimpleDOI
         @json['DOI']
       end
 
-      def publisher
+      def publisher_name
         @json['publisher']&.strip
+      end
+
+      def publisher_place
+        @json['publisher-location']&.strip
       end
 
       def volume

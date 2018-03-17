@@ -108,13 +108,6 @@ module SimpleDOI
         @url ||= (@xml.search("#{doi_path}/resource").first.text.strip rescue nil) || (@xml.search("#{XPATH_ROOT}//doi_data/resource").first.text.strip rescue nil)
       end
 
-      # needs implementation
-      def publisher
-        # Return publisher name concatenated with place if available
-        # If would throw a method error for :+ on publisher_name if nil, to dump nil for the whole thing
-        publisher_name + (publisher_place ? "; #{publisher_place}" : "") rescue nil
-      end
-
       def publisher_name
         @publisher_name ||= @xml.search("//publisher/publisher_name").first.text.strip rescue nil
       end
