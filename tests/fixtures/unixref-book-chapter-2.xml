@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doi_records>
+  <doi_record owner="10.1159" timestamp="2017-10-25 16:04:06">
+    <crossref>
+      <book book_type="edited_book">
+        <book_series_metadata language="en">
+          <series_metadata>
+            <titles>
+              <title>Current Problems in Dermatology</title>
+            </titles>
+            <issn media_type="print">1421-5721</issn>
+            <issn media_type="electronic">1662-2944</issn>
+            <doi_data>
+              <doi>10.1159/issn.1421-5721</doi>
+              <resource>http://www.karger.com/BookSeries/Home/223895</resource>
+            </doi_data>
+          </series_metadata>
+          <contributors>
+            <person_name sequence="first" contributor_role="editor">
+              <given_name>H.</given_name>
+              <surname>Yokozeki</surname>
+            </person_name>
+            <person_name sequence="additional" contributor_role="editor">
+              <given_name>H.</given_name>
+              <surname>Murota</surname>
+            </person_name>
+            <person_name sequence="additional" contributor_role="editor">
+              <given_name>I.</given_name>
+              <surname>Katayama</surname>
+            </person_name>
+          </contributors>
+          <titles>
+            <title>Perspiration Research</title>
+          </titles>
+          <volume>51</volume>
+          <publication_date media_type="print">
+            <month>9</month>
+            <day>2</day>
+            <year>2016</year>
+          </publication_date>
+          <isbn media_type="print">978-3-318-05904-5</isbn>
+          <isbn media_type="electronic">978-3-318-05905-2</isbn>
+          <publisher>
+            <publisher_name>S. Karger AG</publisher_name>
+          </publisher>
+          <doi_data>
+            <doi>10.1159/isbn.978-3-318-05905-2</doi>
+            <resource>http://www.karger.com/Book/Home/271839</resource>
+          </doi_data>
+        </book_series_metadata>
+        <content_item component_type="chapter" publication_type="full_text">
+          <contributors>
+            <person_name sequence="first" contributor_role="author">
+              <given_name>Tetsuo</given_name>
+              <surname>Shiohara</surname>
+            </person_name>
+            <person_name sequence="additional" contributor_role="author">
+              <given_name>Yohei</given_name>
+              <surname>Sato</surname>
+            </person_name>
+            <person_name sequence="additional" contributor_role="author">
+              <given_name>Yurie</given_name>
+              <surname>Komatsu</surname>
+            </person_name>
+            <person_name sequence="additional" contributor_role="author">
+              <given_name>Yukiko</given_name>
+              <surname>Ushigome</surname>
+            </person_name>
+            <person_name sequence="additional" contributor_role="author">
+              <given_name>Yoshiko</given_name>
+              <surname>Mizukawa</surname>
+            </person_name>
+          </contributors>
+          <titles>
+            <title>Sweat as an Efficient Natural Moisturizer</title>
+          </titles>
+          <publication_date media_type="print">
+            <year>2016</year>
+          </publication_date>
+          <publication_date media_type="online">
+            <month>8</month>
+            <day>30</day>
+            <year>2016</year>
+          </publication_date>
+          <pages>
+            <first_page>30</first_page>
+            <last_page>41</last_page>
+          </pages>
+          <publisher_item>
+            <identifier id_type="pii">000446756</identifier>
+          </publisher_item>
+          <doi_data>
+            <doi>10.1159/000446756</doi>
+            <timestamp>20160830110115</timestamp>
+            <resource>https://www.karger.com/Article/FullText/446756</resource>
+            <collection property="crawler-based" setbyID="karger">
+              <item crawler="iParadigms">
+                <resource>http://www.karger.com/Article/Pdf/446756</resource>
+              </item>
+            </collection>
+          </doi_data>
+        </content_item>
+      </book>
+    </crossref>
+  </doi_record>
+</doi_records>

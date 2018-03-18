@@ -5,6 +5,8 @@ module SimpleDOI
       PROPERTIES = [
         :book_title,
         :book_series_title,
+        :chapter_title,
+        :chapter_number,
         :isbn,
         :eisbn,
         :journal_title,
@@ -60,6 +62,20 @@ module SimpleDOI
 
       def contributors
         @contributors ||= []
+      end
+
+      def publisher
+        # Return publisher name concatenated with place if available
+        # If would throw a method error for :+ on publisher_name if nil, to dump nil for the whole thing
+        publisher_name + (publisher_place ? "; #{publisher_place}" : "") rescue nil
+      end
+
+      def publisher_name
+        raise NotImplementedError
+      end
+
+      def publisher_place
+        raise NotImplementedError
       end
 
       # Return all properties as a Hash

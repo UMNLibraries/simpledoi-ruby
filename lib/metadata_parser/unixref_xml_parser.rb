@@ -18,11 +18,15 @@ module SimpleDOI
       end
 
       def book?
-        !@xml.search("/#{XPATH_ROOT}/book/book_metadata").empty?
+        !book_chapter? && !@xml.search("/#{XPATH_ROOT}/book/book_metadata").empty?
       end
 
       def book_series?
         !@xml.search("/#{XPATH_ROOT}/book/book_series_metadata").empty?
+      end
+
+      def book_chapter?
+        !@xml.search("/#{XPATH_ROOT}/book/content_item[@component_type=\"chapter\"]").empty?
       end
 
       def conference_proceeding?
@@ -49,6 +53,14 @@ module SimpleDOI
 
       def book_series_title
         @book_series_title ||= @xml.search("/#{XPATH_ROOT}/book//series_metadata/titles/title").first.text.strip rescue nil
+      end
+
+      def chapter_title
+        @chapter_title ||= @xml.search("/#{XPATH_ROOT}/book/content_item[@component_type=\"chapter\"]/titles/title").first.text.strip rescue nil
+      end
+
+      def chapter_number
+        @chapter_number ||= @xml.search("/#{XPATH_ROOT}/book/content_item[@component_type=\"chapter\"]/component_number").first.text.strip rescue nil
       end
 
       def conference_title
@@ -90,12 +102,15 @@ module SimpleDOI
       end
 
       def contributors
+        role_sequences = Hash.new(0)
         @contributors ||= (@xml.search(contributors_path).map.with_index(1) do |contributor, idx|
           Contributor.new(
             (contributor.search('./given_name').first.text.strip rescue nil),
             (contributor.search('./surname').first.text.strip rescue nil),
             (contributor.attr('contributor_role').strip rescue nil),
-            idx
+            # Incremenent each per role, so all <contributor> elements can be read at once
+            # while preserving author vs editor vs other sequences
+            role_sequences[contributor.attr('contributor_role')] += 1
           )
         end)
       end
@@ -106,13 +121,6 @@ module SimpleDOI
 
       def url
         @url ||= (@xml.search("#{doi_path}/resource").first.text.strip rescue nil) || (@xml.search("#{XPATH_ROOT}//doi_data/resource").first.text.strip rescue nil)
-      end
-
-      # needs implementation
-      def publisher
-        # Return publisher name concatenated with place if available
-        # If would throw a method error for :+ on publisher_name if nil, to dump nil for the whole thing
-        publisher_name + (publisher_place ? "; #{publisher_place}" : "") rescue nil
       end
 
       def publisher_name
@@ -159,6 +167,8 @@ module SimpleDOI
           xpath + '/book/book_metadata/doi_data'
         elsif book_series?
           xpath + '/book/book_series_metadata/doi_data'
+        elsif book_chapter?
+          xpath + '/book/content_item[@component_type="chapter"]/doi_data'
         else
           xpath + '//doi_data'
         end
@@ -172,10 +182,13 @@ module SimpleDOI
           xpath + '/book/book_metadata/contributors/person_name'
         elsif book_series?
           xpath + '/book/book_series_metadata/contributors/person_name'
+        elsif book_chapter?
+          # Chapters may list editors in the outer <book> and chapter authors in the inner <content_item>
+          xpath + '/book/book_metadata/contributors/person_name|' + xpath + '/book/content_item[@component_type="chapter"]/contributors/person_name'
         elsif conference_proceeding?
           xpath + '/conference/conference_paper/contributors/person_name'
         else
-          xpath + '//contributors'
+          '//contributors/person_name'
         end
       end
 
