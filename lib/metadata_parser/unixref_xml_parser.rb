@@ -102,12 +102,15 @@ module SimpleDOI
       end
 
       def contributors
+        role_sequences = Hash.new(0)
         @contributors ||= (@xml.search(contributors_path).map.with_index(1) do |contributor, idx|
           Contributor.new(
             (contributor.search('./given_name').first.text.strip rescue nil),
             (contributor.search('./surname').first.text.strip rescue nil),
             (contributor.attr('contributor_role').strip rescue nil),
-            idx
+            # Incremenent each per role, so all <contributor> elements can be read at once
+            # while preserving author vs editor vs other sequences
+            role_sequences[contributor.attr('contributor_role')] += 1
           )
         end)
       end

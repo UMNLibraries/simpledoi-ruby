@@ -196,7 +196,8 @@ module SimpleDOI
           assert_equal 'Art Vandelay', xml.authors[0].given_name + ' ' + xml.authors[0].surname
           assert_equal 4, xml.editors.count
           assert_equal 'Petrovic', xml.editors.last.surname
-          assert_equal 5, xml.contributors.last.sequence
+          assert_equal 1, xml.contributors.last.sequence
+          # This series lists 4 editors and 1 author
           assert_equal 'author', xml.contributors.last.contributor_role
           assert_equal "997", xml.volume
           assert_equal Date.new(2008, 9, 12), xml.publication_date
