@@ -162,6 +162,27 @@ module SimpleDOI
           assert_nil h[:journal_isoabbrev_title]
         end
 
+        def test_book_chapter
+          xml = UnixrefXMLParser.new File.read("#{fixture_path}/unixref-book-chapter-1.xml")
+          assert_equal 'Theory and Research on Small Groups', xml.book_title
+          assert_equal 'Cooperative Learning and Social Interdependence Theory', xml.chapter_title
+          assert_equal 'Social Psychological Applications to Social Issues', xml.book_series_title
+          assert_equal 'Chapter 2', xml.chapter_number
+          assert_equal '9-35', xml.pagination
+          assert_equal Date.new(2002, 1, 1), xml.publication_date
+          assert_equal '0-306-45679-6', xml.isbn
+          assert_equal 8, xml.editors.count
+          assert_equal 2, xml.authors.count
+          assert_equal 10, xml.contributors.count
+
+          xml = UnixrefXMLParser.new File.read("#{fixture_path}/unixref-book-chapter-2.xml")
+          assert_equal 'Perspiration Research', xml.book_title
+          assert_equal 'Sweat as an Efficient Natural Moisturizer', xml.chapter_title
+          assert_equal 'Current Problems in Dermatology', xml.book_series_title
+          assert_nil xml.chapter_number
+          assert_equal '30-41', xml.pagination
+        end
+
         def test_book_series
           xml = UnixrefXMLParser.new File.read("#{fixture_path}/unixref-bookseries-1.xml")
           assert_equal 'ACS Symposium Series', xml.book_series_title

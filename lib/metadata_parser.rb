@@ -6,6 +6,7 @@ module SimpleDOI
         :book_title,
         :book_series_title,
         :chapter_title,
+        :chapter_number,
         :isbn,
         :eisbn,
         :journal_title,

@@ -18,11 +18,15 @@ module SimpleDOI
       end
 
       def book?
-        !@xml.search("/#{XPATH_ROOT}/book/book_metadata").empty?
+        !book_chapter? && !@xml.search("/#{XPATH_ROOT}/book/book_metadata").empty?
       end
 
       def book_series?
         !@xml.search("/#{XPATH_ROOT}/book/book_series_metadata").empty?
+      end
+
+      def book_chapter?
+        !@xml.search("/#{XPATH_ROOT}/book/content_item[@component_type=\"chapter\"]").empty?
       end
 
       def conference_proceeding?
@@ -49,6 +53,14 @@ module SimpleDOI
 
       def book_series_title
         @book_series_title ||= @xml.search("/#{XPATH_ROOT}/book//series_metadata/titles/title").first.text.strip rescue nil
+      end
+
+      def chapter_title
+        @chapter_title ||= @xml.search("/#{XPATH_ROOT}/book/content_item[@component_type=\"chapter\"]/titles/title").first.text.strip rescue nil
+      end
+
+      def chapter_number
+        @chapter_number ||= @xml.search("/#{XPATH_ROOT}/book/content_item[@component_type=\"chapter\"]/component_number").first.text.strip rescue nil
       end
 
       def conference_title
@@ -152,6 +164,8 @@ module SimpleDOI
           xpath + '/book/book_metadata/doi_data'
         elsif book_series?
           xpath + '/book/book_series_metadata/doi_data'
+        elsif book_chapter?
+          xpath + '/book/content_item[@component_type="chapter"]/doi_data'
         else
           xpath + '//doi_data'
         end
@@ -165,10 +179,13 @@ module SimpleDOI
           xpath + '/book/book_metadata/contributors/person_name'
         elsif book_series?
           xpath + '/book/book_series_metadata/contributors/person_name'
+        elsif book_chapter?
+          # Chapters may list editors in the outer <book> and chapter authors in the inner <content_item>
+          xpath + '/book/book_metadata/contributors/person_name|' + xpath + '/book/content_item[@component_type="chapter"]/contributors/person_name'
         elsif conference_proceeding?
           xpath + '/conference/conference_paper/contributors/person_name'
         else
-          xpath + '//contributors'
+          '//contributors/person_name'
         end
       end
 
