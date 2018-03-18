@@ -120,7 +120,6 @@ module SimpleDOI
           assert_equal '10.1007/978-0-387-72804-9', xml.doi
           assert_equal 'http://www.springerlink.com/index/10.1007/978-0-387-72804-9', xml.url
           assert_equal '235', xml.volume
-          assert_equal '463-468', xml.pagination
           assert_equal 'Springer US; Boston, MA', xml.publisher
           assert_equal Date.new(2007, 1, 1), xml.publication_date
           assert_equal Hash[year: 2007, month: nil, day: nil], xml.publication_date_hash
@@ -155,7 +154,6 @@ module SimpleDOI
           assert_equal 'http://www.springerlink.com/index/10.1007/978-0-387-72804-9', h[:url]
           assert_equal 4, h[:contributors].count
           assert_equal 'Ferneley', h[:contributors][2][:surname]
-          assert_equal '463-468', h[:pagination]
           assert_equal Date.new(2007, 1, 1), h[:publication_date]
 
           assert_nil h[:issn]
