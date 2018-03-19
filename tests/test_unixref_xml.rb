@@ -228,6 +228,13 @@ module SimpleDOI
           assert_equal 'IEEE', xml.publisher
           assert_equal Date.new(2009, 5, 1), xml.publication_date
         end
+
+        def test_conference_series
+          xml = UnixrefXMLParser.new File.read("#{fixture_path}/unixref-conference-series-1.xml")
+          assert_equal '219th ECS Meeting', xml.conference_title
+          assert_equal 'Optical and Electrical Properties of Si-Based Multilayer Structures for Solar Cell Applications', xml.article_title
+          assert_equal 'ECS Transactions', xml.conference_series_title
+        end
       end
     end
   end

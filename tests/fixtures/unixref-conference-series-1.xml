@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doi_records>
+  <doi_record owner="10.1149" timestamp="2016-12-23 02:24:45">
+    <crossref>
+      <conference>
+        <event_metadata>
+          <conference_name>219th ECS Meeting</conference_name>
+          <conference_location>Montreal, QC, Canada</conference_location>
+          <conference_date>May 1 - May 6, 2011</conference_date>
+        </event_metadata>
+        <proceedings_series_metadata>
+          <series_metadata>
+            <titles>
+              <title>ECS Transactions</title>
+            </titles>
+            <issn>19385862</issn>
+          </series_metadata>
+          <publisher>
+            <publisher_name>ECS</publisher_name>
+          </publisher>
+          <publication_date>
+            <year>2011</year>
+          </publication_date>
+        </proceedings_series_metadata>
+        <conference_paper>
+          <contributors>
+            <person_name sequence="first" contributor_role="author">
+              <given_name>R. Pratibha</given_name>
+              <surname>Nalini</surname>
+            </person_name>
+            <person_name sequence="additional" contributor_role="author">
+              <given_name>Julien</given_name>
+              <surname>Cardin</surname>
+            </person_name>
+            <person_name sequence="additional" contributor_role="author">
+              <given_name>Kalpana R.</given_name>
+              <surname>Dey</surname>
+            </person_name>
+            <person_name sequence="additional" contributor_role="author">
+              <given_name>Xavier</given_name>
+              <surname>Portier</surname>
+            </person_name>
+            <person_name sequence="additional" contributor_role="author">
+              <given_name>Christian</given_name>
+              <surname>Dufour</surname>
+            </person_name>
+            <person_name sequence="additional" contributor_role="author">
+              <given_name>Fabrice</given_name>
+              <surname>Gourbilleau</surname>
+            </person_name>
+          </contributors>
+          <titles>
+            <title>Optical and Electrical Properties of Si-Based Multilayer Structures for Solar Cell Applications</title>
+          </titles>
+          <publication_date>
+            <year>2011</year>
+          </publication_date>
+          <pages>
+            <first_page>273</first_page>
+            <last_page>285</last_page>
+          </pages>
+          <doi_data>
+            <doi>10.1149/1.3572289</doi>
+            <timestamp>20110427185531</timestamp>
+            <resource>http://ecst.ecsdl.org/cgi/doi/10.1149/1.3572289</resource>
+            <collection property="crawler-based">
+              <item crawler="iParadigms">
+                <resource>https://syndication.highwire.org/content/doi/10.1149/1.3572289</resource>
+              </item>
+            </collection>
+          </doi_data>
+        </conference_paper>
+      </conference>
+    </crossref>
+  </doi_record>
+</doi_records>

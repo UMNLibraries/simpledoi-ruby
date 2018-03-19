@@ -33,7 +33,7 @@ module SimpleDOI
       end
 
       def conference_proceeding?
-        !!(@json['type'] =~ /proceedings/)
+        !!(@json['type'] =~ /proceedings|conference/)
       end
 
       def journal_title
@@ -74,6 +74,10 @@ module SimpleDOI
 
       def chapter_title
         @json['title']&.strip if book_chapter?
+      end
+
+      def conference_title
+        @json['event']&.strip if conference_proceeding?
       end
 
       def authors

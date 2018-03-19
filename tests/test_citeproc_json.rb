@@ -182,6 +182,11 @@ module SimpleDOI
           assert_equal Date.new(2009, 1, 1), json.publication_date
           assert_equal 2, json.authors.count
           assert_equal "Zhao", json.authors.last.surname
+
+          json = CiteprocJSONParser.new File.read("#{fixture_path}/citeproc-conference-series-1.json")
+          assert_equal '219th ECS Meeting', json.conference_title
+          assert_equal 'Optical and Electrical Properties of Si-Based Multilayer Structures for Solar Cell Applications', json.article_title
+          assert_equal 'Dufour', json.authors[4].surname
         end
       end
     end

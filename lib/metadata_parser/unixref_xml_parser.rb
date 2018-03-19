@@ -30,7 +30,7 @@ module SimpleDOI
       end
 
       def conference_proceeding?
-        !@xml.search("/#{XPATH_ROOT}/conference/proceedings_metadata").empty?
+        !@xml.search("/#{XPATH_ROOT}/conference/*[starts-with(local-name(), \"proceedings\")]").empty?
       end
 
       def journal_article?
@@ -65,6 +65,10 @@ module SimpleDOI
 
       def conference_title
         @conference_title ||= @xml.search("/#{XPATH_ROOT}/conference//event_metadata/conference_name").first.text.strip rescue nil
+      end
+
+      def conference_series_title
+        @conference_series_title ||= @xml.search("/#{XPATH_ROOT}/conference/*/series_metadata/titles/title").first.text.strip rescue nil
       end
 
       def isbn

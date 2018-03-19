@@ -15,6 +15,7 @@ module SimpleDOI
         :eissn,
         :article_title,
         :conference_title,
+        :conference_series_title,
         :contributors,
         :doi,
         :url,

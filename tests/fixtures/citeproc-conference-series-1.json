@@ -1,0 +1,111 @@
+{
+  "indexed": {
+    "date-parts": [
+      [
+        2017,
+        10,
+        26
+      ]
+    ],
+    "date-time": "2017-10-26T20:21:13Z",
+    "timestamp": 1509049273474
+  },
+  "reference-count": 0,
+  "publisher": "ECS",
+  "content-domain": {
+    "domain": [],
+    "crossmark-restriction": false
+  },
+  "published-print": {
+    "date-parts": [
+      [
+        2011
+      ]
+    ]
+  },
+  "DOI": "10.1149/1.3572289",
+  "type": "paper-conference",
+  "created": {
+    "date-parts": [
+      [
+        2011,
+        4,
+        27
+      ]
+    ],
+    "date-time": "2011-04-27T22:55:59Z",
+    "timestamp": 1303944959000
+  },
+  "source": "Crossref",
+  "is-referenced-by-count": 0,
+  "title": "Optical and Electrical Properties of Si-Based Multilayer Structures for Solar Cell Applications",
+  "prefix": "10.1149",
+  "author": [
+    {
+      "given": "R. Pratibha",
+      "family": "Nalini",
+      "affiliation": []
+    },
+    {
+      "given": "Julien",
+      "family": "Cardin",
+      "affiliation": []
+    },
+    {
+      "given": "Kalpana R.",
+      "family": "Dey",
+      "affiliation": []
+    },
+    {
+      "given": "Xavier",
+      "family": "Portier",
+      "affiliation": []
+    },
+    {
+      "given": "Christian",
+      "family": "Dufour",
+      "affiliation": []
+    },
+    {
+      "given": "Fabrice",
+      "family": "Gourbilleau",
+      "affiliation": []
+    }
+  ],
+  "member": "77",
+  "event": "219th ECS Meeting",
+  "container-title": [],
+  "original-title": [],
+  "link": [
+    {
+      "URL": "https://syndication.highwire.org/content/doi/10.1149/1.3572289",
+      "content-type": "unspecified",
+      "content-version": "vor",
+      "intended-application": "similarity-checking"
+    }
+  ],
+  "deposited": {
+    "date-parts": [
+      [
+        2016,
+        12,
+        23
+      ]
+    ],
+    "date-time": "2016-12-23T07:24:45Z",
+    "timestamp": 1482477885000
+  },
+  "score": 1,
+  "subtitle": [],
+  "short-title": [],
+  "issued": {
+    "date-parts": [
+      [
+        2011
+      ]
+    ]
+  },
+  "references-count": 0,
+  "URL": "http://dx.doi.org/10.1149/1.3572289",
+  "relation": {}
+}
