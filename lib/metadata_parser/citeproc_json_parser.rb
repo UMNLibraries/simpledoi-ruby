@@ -21,11 +21,11 @@ module SimpleDOI
       end
 
       def book?
-        !!(@json['type'] =~ /book/i) && @json['container-title'].to_s.empty?
+        !!(@json['type'] =~ /book/i) && scalar('container-title').to_s.empty?
       end
 
       def book_series?
-        !!(@json['type'] =~ /book/i) && !@json['container-title'].to_s.empty?
+        !!(@json['type'] =~ /book/i) && !scalar('container-title').to_s.empty?
       end
 
       def book_chapter?
@@ -38,7 +38,7 @@ module SimpleDOI
 
       def journal_title
         if journal_article?
-          @json['container-title']&.strip
+          scalar('container-title')
         elsif journal?
           @json['title']&.strip
         else
@@ -48,7 +48,7 @@ module SimpleDOI
 
       def journal_isoabbrev_title
         if journal_article?
-          @json['container-title-short']&.strip
+          scalar('container-title-short')
         elsif journal?
           @json['short-title']&.first
         else
@@ -60,12 +60,12 @@ module SimpleDOI
         if book? || book_series?
           @json['title']&.strip
         elsif book_chapter? || conference_proceeding?
-          @json['container-title']&.strip
+          scalar('container-title')
         end
       end
 
       def book_series_title
-        @json['container-title']&.strip if book_series? || conference_proceeding?
+        scalar('container-title') if book_series? || conference_proceeding?
       end
 
       def article_title
@@ -178,6 +178,13 @@ module SimpleDOI
       # maintining nil for missing date parts
       def arr_to_date_hash(date_source)
         Hash[[:year, :month, :day].zip(date_source)]
+      end
+
+      protected
+      # Some items in JSON are supplied as arrays by some vendors and strings by most others
+      # We assume single strings for these, so force the array down to a single scalar
+      def scalar(key)
+        [@json[key]].flatten.first.strip rescue nil
       end
     end
   end
