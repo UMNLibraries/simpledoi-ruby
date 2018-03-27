@@ -18,7 +18,8 @@ module SimpleDOI
     /\.pdf$/,
     /\/(standard|pdf\/standard|fulltext\.html|pdf|full|dynaTraceMonitor|references|issues|full)$/,
     /\/cite\/[a-z]+$/,
-    /;jsessionid.+$/
+    /;jsessionid.+$/,
+    /\/epdf$/
   ].freeze
 
   # Convenience methods to call directly on module

@@ -22,3 +22,4 @@
 10.1234/abcdefg/1234 This http://dx.doi.org/10.1234/abcdefg/1234/full has /full
 10.1234/abcdefg/1234 This http://dx.doi.org/10.1234/abcdefg/1234/cite/refworks has /cite/refworks
 10.1234/abcdefg/1234 This http://dx.doi.org/10.1234%2Fabcdefg%2F1234 s is urlencoded
+10.1111/j.1741-3729.2000.00319.x http://example.com/doi/10.1111/j.1741-3729.2000.00319.x/epdf should lose the /epdf
