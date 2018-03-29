@@ -16,10 +16,9 @@ module SimpleDOI
   STRIP_PATTERNS = [
     /\/(abstract|asset|issuetoc).*$/,
     /\.pdf$/,
-    /\/(standard|pdf\/standard|fulltext\.html|pdf|full|dynaTraceMonitor|references|issues|full)$/,
+    /\/(standard|pdf\/standard|fulltext\.html|pdf|epdf|meta|full|dynaTraceMonitor|references|issues|full)$/,
     /\/cite\/[a-z]+$/,
-    /;jsessionid.+$/,
-    /\/epdf$/
+    /;jsessionid.+$/
   ].freeze
 
   # Convenience methods to call directly on module
