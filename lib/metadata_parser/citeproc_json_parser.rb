@@ -98,7 +98,7 @@ module SimpleDOI
               Contributor.new(
                 (contributor['given'].strip rescue nil),
                 (contributor['family'].strip rescue nil),
-                set_type,
+                type,
                 idx
               )
             end)
