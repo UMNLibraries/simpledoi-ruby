@@ -28,9 +28,6 @@ module SimpleDOI
 
       Contributor = Struct.new(:given_name, :surname, :contributor_role, :sequence)
 
-      # Default readers for all PROPERTIES
-      attr_reader :str, *PROPERTIES
-
       # Params:
       # +str+:: +String+ XML String
       def initialize(str)
@@ -88,6 +85,11 @@ module SimpleDOI
         hash
       end
       alias :to_hash :to_h
+
+      # Default readers for all PROPERTIES unless a real method already exists
+      # Instead of doing this at the beginning then overwriting some property methods
+      # since ruby will complain with warnings when redefining methods.
+      attr_reader :str, *(PROPERTIES.reject {|p| method_defined?(p)})
     end
   end
 end
