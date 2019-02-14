@@ -8,10 +8,10 @@ GEM
     curb (0.9.4)
     hashdiff (0.3.7)
     json (2.1.0)
-    mini_portile2 (2.3.0)
+    mini_portile2 (2.4.0)
     minitest (5.11.3)
-    nokogiri (1.8.2)
-      mini_portile2 (~> 2.3.0)
+    nokogiri (1.10.1)
+      mini_portile2 (~> 2.4.0)
     public_suffix (3.0.2)
     rake (12.3.0)
     safe_yaml (1.0.4)
@@ -27,7 +27,7 @@ DEPENDENCIES
   curb (~> 0.9)
   json
   minitest (~> 5.11)
-  nokogiri (>= 1.8.2)
+  nokogiri (>= 1.8.5)
   rake
   webmock (~> 3.3)
 
