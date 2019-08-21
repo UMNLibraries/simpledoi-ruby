@@ -11,5 +11,5 @@ gem 'json'
 group :test do
   gem 'minitest', '~>5.11'
   gem 'webmock', '~>3.3'
-  gem 'curb', '~>0.9'
+  gem 'curb', '~>0.9.10'
 end

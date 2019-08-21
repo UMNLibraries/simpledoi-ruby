@@ -24,7 +24,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  curb (~> 0.9)
+  curb (~> 0.9.10)
   json
   minitest (~> 5.11)
   nokogiri (>= 1.10.4)
