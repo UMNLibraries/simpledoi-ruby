@@ -73,6 +73,8 @@ module SimpleDOI
 
     REDIR_CODES = [301, 302, 303]
 
+    READ_TIMEOUT = 10
+
     attr_reader :body, :response_content_type, :response_code, :backend, :doi
 
     def initialize(doi)
@@ -187,9 +189,10 @@ module SimpleDOI
       # Perform an HTTP request but don't follow the first redirect
       case @backend
       when 'curb'
-        client = Curl::Easy.new(url) do |request|
-          request.max_redirects = 0
-          request.follow_location = false
+        client = Curl::Easy.new(url) do |c|
+          c.max_redirects = 0
+          c.follow_location = false
+          c.timeout = READ_TIMEOUT
         end
         client.perform
         location = client.header_str.scan(/location:\s+(\S+)/i).flatten.first if REDIR_CODES.include? client.response_code.to_i
@@ -216,6 +219,8 @@ module SimpleDOI
       request_use_ssl = uri.scheme == 'https'
       client = Net::HTTP.new uri.host, (request_use_ssl ? Net::HTTP.https_default_port : Net::HTTP.http_default_port)
       client.use_ssl = request_use_ssl
+      client.read_timeout = READ_TIMEOUT
+
       request = Net::HTTP::Get.new uri.request_uri
       request['Accept'] = type
       response = client.request request
