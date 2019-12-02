@@ -124,7 +124,8 @@ module SimpleDOI
     # Returns: +String+ HTTP response body
     # Params:
     # * +accept+:: +String|Array+ Requested Accept: content types may be single string or array
-    def lookup(accept = CITEPROC_JSON)
+    # * +options+:: +Hash+ Options hash (timeout)
+    def lookup(accept = CITEPROC_JSON, options = {})
       raise NoBackendError unless @backend
 
       # Coerce accept to a 1D array
@@ -135,9 +136,10 @@ module SimpleDOI
 
       case @backend
       when 'curb'
-        client = Curl::Easy.new(url) do |request|
-          request.headers['Accept'] = accept.join(', ')
-          request.follow_location = true
+        client = Curl::Easy.new(url) do |c|
+          c.headers['Accept'] = accept.join(', ')
+          c.follow_location = true
+          c.timeout = options[:timeout] || READ_TIMEOUT
         end
         client.perform
         @response_code = client.response_code.to_i
@@ -151,7 +153,7 @@ module SimpleDOI
       when 'net/http'
         uri = URI.parse url
 
-        response = net_http_response_redirect(uri, accept)
+        response = net_http_response_redirect(uri, accept, options)
         @response_code = response.code.to_i
         if @response_code == 200
           @body = response.body
@@ -183,7 +185,7 @@ module SimpleDOI
     end
 
     # Get the redirection target URL or return it if already retrieved
-    def target_url
+    def target_url(options = {})
       return @target_url unless @target_url.nil?
 
       # Perform an HTTP request but don't follow the first redirect
@@ -192,7 +194,7 @@ module SimpleDOI
         client = Curl::Easy.new(url) do |c|
           c.max_redirects = 0
           c.follow_location = false
-          c.timeout = READ_TIMEOUT
+          c.timeout = options[:timeout] || READ_TIMEOUT
         end
         client.perform
         location = client.header_str.scan(/location:\s+(\S+)/i).flatten.first if REDIR_CODES.include? client.response_code.to_i
@@ -201,6 +203,8 @@ module SimpleDOI
         request_use_ssl = uri.scheme == 'https'
         client = Net::HTTP.new uri.host, (request_use_ssl ? Net::HTTP.https_default_port : Net::HTTP.http_default_port)
         client.use_ssl = request_use_ssl
+        client.read_timeout = options[:timeout] || READ_TIMEOUT
+
         request = Net::HTTP::Get.new uri.request_uri
         response = client.request request
         location = response['location'] if REDIR_CODES.map(&:to_s).include? response.code
@@ -214,12 +218,12 @@ module SimpleDOI
 
     protected
 
-    def net_http_response_redirect(uri, type)
+    def net_http_response_redirect(uri, type, options = {})
       # Net::HTTP require different initial setup for https vs http
       request_use_ssl = uri.scheme == 'https'
       client = Net::HTTP.new uri.host, (request_use_ssl ? Net::HTTP.https_default_port : Net::HTTP.http_default_port)
       client.use_ssl = request_use_ssl
-      client.read_timeout = READ_TIMEOUT
+      client.read_timeout = options[:timeout] || READ_TIMEOUT
 
       request = Net::HTTP::Get.new uri.request_uri
       request['Accept'] = type
@@ -227,7 +231,7 @@ module SimpleDOI
 
       # Recurse until done redirecting
       if REDIR_CODES.map(&:to_s).include? response.code
-        net_http_response_redirect(URI.parse(response['location']), type)
+        net_http_response_redirect(URI.parse(response['location']), type, options)
       else
         response
       end
