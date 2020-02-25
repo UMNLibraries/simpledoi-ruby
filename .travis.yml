@@ -1,6 +1,9 @@
 # travisci
 language: ruby
 
+install:
+  - gem install bundler
+
 rvm:
   - 2.3.0
   - 2.4.3
