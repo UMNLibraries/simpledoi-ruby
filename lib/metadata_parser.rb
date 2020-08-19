@@ -19,6 +19,7 @@ module SimpleDOI
         :contributors,
         :doi,
         :url,
+        :fulltext_url,
         :publisher,
         :volume,
         :issue,

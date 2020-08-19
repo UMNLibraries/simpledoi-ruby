@@ -127,6 +127,12 @@ module SimpleDOI
         @url ||= (@xml.search("#{doi_path}/resource").first.text.strip rescue nil) || (@xml.search("#{XPATH_ROOT}//doi_data/resource").first.text.strip rescue nil)
       end
 
+      def fulltext_url
+        # Direct PDF may be in <item crawler="iParadigms"> intended for PDF submission to document similarity
+        # testing engine https://www.crossref.org/education/similarity-check/participate/urls-for-existing-deposits/#00319
+        @fulltext_url ||= (@xml.search("#{doi_path}/collection[@property='crawler-based']/item[@crawler='iParadigms']/resource").first.text.strip rescue nil)
+      end
+
       def publisher_name
         @publisher_name ||= @xml.search("//publisher/publisher_name").first.text.strip rescue nil
       end
