@@ -50,6 +50,9 @@ module SimpleDOI
           refute xml.journal_article?
           refute xml.conference_proceeding?
 
+          xml = UnixrefXMLParser.new File.read("#{fixture_path}/unixref-book-chapter-2.xml")
+          assert xml.book_chapter?
+
           xml = UnixrefXMLParser.new File.read("#{fixture_path}/unixref-conference-1.xml")
           assert xml.conference_proceeding?
           refute xml.book?

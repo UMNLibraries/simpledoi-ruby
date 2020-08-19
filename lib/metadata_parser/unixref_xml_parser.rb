@@ -169,10 +169,10 @@ module SimpleDOI
           xpath + '/journal/journal_metadata/doi_data'
         elsif book?
           xpath + '/book/book_metadata/doi_data'
-        elsif book_series?
-          xpath + '/book/book_series_metadata/doi_data'
         elsif book_chapter?
           xpath + '/book/content_item[@component_type="chapter"]/doi_data'
+        elsif book_series?
+          xpath + '/book/book_series_metadata/doi_data'
         else
           xpath + '//doi_data'
         end
