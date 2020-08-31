@@ -310,6 +310,8 @@ http://dx.doi.org/10.1207/s15327876mp1003_4
 http://dx.doi.org/10.1109/ICSENS.2002.1037190
 http://dx.doi.org/10.1109/SIPS.2006.352618?nosfx=n
 http://dx.doi.org/10.3109/03009730903573246?nosfx=y
+http://doi.org/10.1109/SIPS.2006.352618?nosfx=n
+http://doi.org/10.3109/03009730903573246?nosfx=y
 DOI:10.1016/j.pscychresns.2008.03.012
 DOI:10.4061/2010/753726
 DOI:10.1007/3-540-44709-1_33

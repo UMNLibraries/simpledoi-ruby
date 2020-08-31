@@ -45,7 +45,7 @@ module SimpleDOI
     string.sub!(/^doi:/i, '')
 
     # Strip off doi.org URL prefix and ?nosfx
-    string.sub!(Regexp.new('^https?://' + DOI::LOOKUP_URL_DOMAIN + '/'), '')
+    string.sub!(Regexp.new('^https?://(?:dx\.)?' + DOI::LOOKUP_URL_DOMAIN + '/'), '')
 
     # Strip query string
     # Have to make sure it actually looks like a query string with key=value
@@ -67,7 +67,7 @@ module SimpleDOI
   class DOI
     include SimpleDOI
 
-    LOOKUP_URL_DOMAIN = 'dx.doi.org'
+    LOOKUP_URL_DOMAIN = 'doi.org'
 
     BACKENDS = %w(curb net/http)
 

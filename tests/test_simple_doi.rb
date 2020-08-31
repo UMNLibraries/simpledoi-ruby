@@ -125,15 +125,15 @@ module SimpleDOI
 
       def test_url
         doi = SimpleDOI::DOI.new '10.1234/abcd.321'
-        assert_equal 'https://dx.doi.org/10.1234%2Fabcd.321', doi.url, 'A full CGI escaped URL should be returned'
+        assert_equal 'https://doi.org/10.1234%2Fabcd.321', doi.url, 'A full CGI escaped URL should be returned'
       end
 
       def test_lookup_json
-        # Mock a set of returns first to dx.doi.org with a location redirect,
+        # Mock a set of returns first to doi.org with a location redirect,
         # then to a target resource returning JSON
         expected = { 'prop1' => 'property', 'prop2' => 'property' }
 
-        stub_request(:get, /https:\/\/dx.doi.org\/(.+)json/)
+        stub_request(:get, /https:\/\/doi.org\/(.+)json/)
           .to_return(body: 'This is redirecting', status: 301, headers: { 'location' => 'http://example.com/doijson' })
         stub_request(:get, 'http://example.com/doijson')
           .to_return(body: expected.to_json, status: 200, headers: { 'content-type' => 'application/citeproc+json' })
@@ -155,7 +155,7 @@ module SimpleDOI
       def test_lookup_xml
         expected = '<?xml version="1.1><root><node>value</node>"'
 
-        stub_request(:get, /https:\/\/dx.doi.org\/(.+)xml/)
+        stub_request(:get, /https:\/\/doi.org\/(.+)xml/)
           .to_return(body: 'This is redirecting', status: 301, headers: { 'location' => 'http://example.com/doixml' })
         stub_request(:get, 'http://example.com/doixml')
           .to_return(body: expected, status: 200, headers: { 'content-type' => 'application/unixref+xml' })
@@ -183,14 +183,14 @@ module SimpleDOI
       def test_lookup_multi
         expected_xml = '<?xml version="1.1><root><node>value</node>"'
 
-        stub_request(:get, /https:\/\/dx.doi.org\/(.+)xml/)
+        stub_request(:get, /https:\/\/doi.org\/(.+)xml/)
           .to_return(body: 'This is redirecting', status: 301, headers: { 'location' => 'https://example.com/doixml' })
         stub_request(:get, 'https://example.com/doixml')
           .to_return(body: expected_xml, status: 200, headers: { 'content-type' => 'application/unixref+xml' })
 
         expected_json = '{"prop1":"property", "prop2":"property"}'
 
-        stub_request(:get, /https:\/\/dx.doi.org\/(.+)json/)
+        stub_request(:get, /https:\/\/doi.org\/(.+)json/)
           .to_return(body: 'This is redirecting', status: 301, headers: { 'location' => 'http://example.com/doijson' })
         stub_request(:get, 'http://example.com/doijson')
           .to_return(body: expected_json, status: 200, headers: { 'content-type' => 'application/citeproc+json' })
@@ -221,7 +221,7 @@ module SimpleDOI
       end
 
       def test_lookup_404
-        stub_request(:get, 'https://dx.doi.org/10.1234%2Fnotexist')
+        stub_request(:get, 'https://doi.org/10.1234%2Fnotexist')
           .to_return(body: 'DOI DOES NOT EXIST', status: 404, headers: { 'content-type' => 'text/html' })
 
         # Lookup with curb
@@ -240,7 +240,7 @@ module SimpleDOI
       end
 
       def test_invalid_content_type_raises_exception
-        stub_request(:get, /https:\/\/dx.doi.org\/(.+)/)
+        stub_request(:get, /https:\/\/doi.org\/(.+)/)
           .to_return(body: 'This is redirecting', status: 301, headers: { 'location' => 'http://example.com/doijson' })
         stub_request(:get, 'http://example.com/doijson')
           .to_return(body: 'This returns HTML', status: 200, headers: { 'content-type' => 'text/html' })
@@ -257,9 +257,9 @@ module SimpleDOI
       end
 
       def test_target_url
-        stub_request(:get, 'https://dx.doi.org/10.1234%2Ftarget')
+        stub_request(:get, 'https://doi.org/10.1234%2Ftarget')
           .to_return(body: 'REDIRECT TO LOCATION', status: 301, headers: { 'location' => 'http://example.com/target' })
-        stub_request(:get, 'https://dx.doi.org/10.1234%2Ftarget_notexist')
+        stub_request(:get, 'https://doi.org/10.1234%2Ftarget_notexist')
           .to_return(body: 'DOI DOES NOT EXIST', status: 404)
 
         doi = SimpleDOI::DOI.new '10.1234/target'
