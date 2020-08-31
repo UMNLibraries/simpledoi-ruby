@@ -75,6 +75,7 @@ module SimpleDOI
           assert_equal '1939-1544', xml.eissn
           assert_equal '10.1037/0090-5550.52.1.74', xml.doi
           assert_equal 'http://doi.apa.org/getdoi.cfm?doi=10.1037/0090-5550.52.1.74', xml.url
+          assert_equal 'http://doi.apa.org/getdoi.cfm?doi=10.1037/0090-5550.52.1.74&fakeformat=pdf', xml.fulltext_url
 
           xml = UnixrefXMLParser.new File.read("#{fixture_path}/unixref-journal-2.xml")
           assert_equal 'Teaching Education', xml.journal_title
@@ -90,6 +91,7 @@ module SimpleDOI
           assert_nil xml.isbn
           assert_nil xml.book_title
           assert_nil xml.book_series_title
+          assert_nil xml.fulltext_url
         end
 
         def test_issn_without_print_attribute
@@ -177,13 +179,16 @@ module SimpleDOI
           assert_equal 8, xml.editors.count
           assert_equal 2, xml.authors.count
           assert_equal 10, xml.contributors.count
+          assert_equal 'http://www.springerlink.com/index/pdf/10.1007/0-306-47144-2_2', xml.fulltext_url
 
           xml = UnixrefXMLParser.new File.read("#{fixture_path}/unixref-book-chapter-2.xml")
+          assert_equal '10.1159/000446756', xml.doi
           assert_equal 'Perspiration Research', xml.book_title
           assert_equal 'Sweat as an Efficient Natural Moisturizer', xml.chapter_title
           assert_equal 'Current Problems in Dermatology', xml.book_series_title
           assert_nil xml.chapter_number
           assert_equal '30-41', xml.pagination
+          assert_equal 'http://www.karger.com/Article/Pdf/446756', xml.fulltext_url
         end
 
         def test_book_series
