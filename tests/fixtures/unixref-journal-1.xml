@@ -62,6 +62,11 @@
             <doi>10.1037/0090-5550.52.1.74</doi>
             <timestamp>2014070810244700000</timestamp>
             <resource>http://doi.apa.org/getdoi.cfm?doi=10.1037/0090-5550.52.1.74</resource>
+            <collection property="crawler-based">
+              <item crawler="iParadigms">
+                <resource>http://doi.apa.org/getdoi.cfm?doi=10.1037/0090-5550.52.1.74&amp;fakeformat=pdf</resource>
+              </item>
+            </collection>
           </doi_data>
         </journal_article>
       </journal>
