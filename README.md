@@ -82,6 +82,16 @@ end
 Valid format arguments for `lookup` are `SimpleDOI::UNIXREF_XML,
 SimpleDOI::CITEPROC_JSON`
 
+#### Additional lookup arguments
+Pass an `options` hash as the second argument to `lookup()` with additional
+settings for network backends. Currently only `timeout` is supported for the
+Curb backend.
+
+```ruby
+# Increase lookup timeout (default 10s)
+response = doi.lookup(SimpleDOI::UNIXREF_XML, {timeout: 20})
+```
+
 ### Parse returned metadata
 The metadata format parsers included with this library are not comprehensive.
 They present a common, simple interface to retrieve certain metadata components
